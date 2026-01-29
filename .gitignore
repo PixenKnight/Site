@@ -152,3 +152,6 @@ count.txt
 .output
 .vinxi
 todos.json
+
+# Package-lock should not be checked in
+package-lock.json
