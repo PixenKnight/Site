@@ -1,6 +1,6 @@
 import { Link, useLocation } from '@tanstack/react-router'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
 	ChevronDown,
 	ChevronRight,
@@ -174,10 +174,11 @@ function BurgerMenu({ isOpen, setIsOpen }: {
 	)
 }
 
-function HeaderNav({ isOpen, setIsOpen }: {
+function HeaderNav({ setIsOpen }: {
 	isOpen: boolean
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
+	const [ burgerOverNavbar, setBurgerOverNavbar ] = useState(false)
 	const windowWidth = useWindowWidth()
 	const location = useLocation()
 
@@ -187,40 +188,50 @@ function HeaderNav({ isOpen, setIsOpen }: {
 			: 'transition-colors text-white font-medium hover:text-cyan-400'
 	}
 
-	if (windowWidth > 768) {
-		const { routesByPath } = useRouter()
-		const routeLinks = []
-		for (const path in routesByPath) {
-			// Remove leading and trailing slashes for cleaner display
-			const cleanPath = path.replace(/\/+$/, '').replace(/^\/+/, '')
-			if (cleanPath.includes('/')) continue // Skip dynamic routes
-			routeLinks.push(
-				<Link
-					key={path}
-					to={path}
-					className={`pb-[0.12rem] ${highlightRoute(path)}`}
-				>
-					{path === '/' ? 'Home' : cleanPath.replace(/\b\w/g, c => c.toUpperCase())}
-				</Link>
-			)
+	useEffect(() => {
+		if (windowWidth >= 768) {
+			setBurgerOverNavbar(false)
+		} else {
+			setBurgerOverNavbar(true)
 		}
+	}, [windowWidth])
 
-		return (
-			<nav className="mr-4 flex items-center gap-6">
-				{routeLinks}
-			</nav>
-		)
-	} else {
-		return (
-			<button
-				onClick={() => setIsOpen(isOpen => !isOpen)}
-				className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-				aria-label="Open menu"
+	const { routesByPath } = useRouter()
+	const navbarLinks = []
+	for (const path in routesByPath) {
+		// Remove leading and trailing slashes for cleaner display
+		const cleanPath = path.replace(/\/+$/, '').replace(/^\/+/, '')
+		if (cleanPath.includes('/')) continue // Skip dynamic routes
+		navbarLinks.push(
+			<Link
+				key={path}
+				to={path}
+				className={`pb-[0.12rem] ${highlightRoute(path)}`}
 			>
-				<Menu size={24} />
-			</button>
+				{path === '/' ? 'Home' : cleanPath.replace(/\b\w/g, c => c.toUpperCase())}
+			</Link>
 		)
 	}
+
+	return (
+		<div>
+			{!burgerOverNavbar && (
+				<nav className="mr-4 flex items-center gap-6">
+					{navbarLinks}
+				</nav>
+			)}
+			
+			{burgerOverNavbar && (
+				<button
+					onClick={() => setIsOpen(isOpen => !isOpen)}
+					className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+					aria-label="Open menu"
+				>
+					<Menu size={24} />
+				</button>
+			)}
+		</div>
+	)
 }
 
 export default function Header() {
