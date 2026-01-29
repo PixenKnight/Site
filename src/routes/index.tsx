@@ -9,9 +9,11 @@ import {
 	CircuitBoard
 } from 'lucide-react'
 
+import { motion } from 'motion/react'
+
 export const Route = createFileRoute('/')({ component: App })
 
-const features = [
+const cards = [
 	{
 		icon: <Computer className="w-12 h-12 text-cyan-400" />,
 		title: 'Tech Enthusiast',
@@ -56,8 +58,11 @@ function Card({ icon, title, description }: {
 	description: string
 }) {
 	return (
-		<div
-			className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
+		<motion.div
+			className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-colors hover:shadow-lg hover:shadow-cyan-500/10 opacity-0"
+			whileInView={{ opacity: 1}}
+			transition={{ duration: 0.5, ease: 'easeOut' }}
+			viewport={{ amount: 0.5 }}
 		>
 			<div className="mb-4">{icon}</div>
 			<h3 className="text-xl font-semibold text-white mb-3">
@@ -66,7 +71,7 @@ function Card({ icon, title, description }: {
 			<p className="text-gray-400 leading-relaxed">
 				{description}
 			</p>
-		</div>
+		</motion.div>
 	)
 }
 
@@ -76,14 +81,14 @@ function App() {
 			<section className="relative py-20 px-6 text-center overflow-hidden h-[calc(100vh-72px)] flex flex-col justify-center">
 				<div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 animate-slow-pulse"></div>
 				<div className="relative max-w-5xl mx-auto">
-					<div className="flex items-center justify-center gap-6 mb-6">
+					<motion.div className="flex items-center justify-center gap-6 mb-6" animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
 						<h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.02em] transform duration-300 ease-in-out motion-safe:hover:-translate-y-1">
 							<span className="text-gray-300">HI! I'M</span>{' '}
 							<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
 								PAUL
 							</span>
 						</h1>
-					</div>
+					</motion.div>
 					<p className="text-2xl md:text-3xl text-gray-300 mb-4 font-light">
 						I'm a full-stack developer who loves building robust, scalable infrastructure
 					</p>
@@ -104,7 +109,7 @@ function App() {
 
 			<section className="py-16 px-6 max-w-7xl mx-auto">
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{features.map((feature, index) => (
+					{cards.map((feature, index) => (
 						<Card
 							key={index}
 							icon={feature.icon}
