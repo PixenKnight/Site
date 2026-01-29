@@ -18,17 +18,17 @@ export const Route = createRootRoute({
 			},
 			{
 				title: 'Paul Maresquier',
-			},
+			}
 		],
 		links: [
 			{
 				rel: 'stylesheet',
-				href: appCss,
-			},
-		],
+				href: appCss
+			}
+		]
 	}),
 
-	shellComponent: RootDocument,
+	shellComponent: RootDocument
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
