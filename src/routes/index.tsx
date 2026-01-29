@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   Zap,
   Server,
@@ -6,6 +6,7 @@ import {
   Shield,
   Waves,
   Sparkles,
+  MessageCircle
 } from 'lucide-react'
 
 export const Route = createFileRoute('/')({ component: App })
@@ -51,46 +52,36 @@ function App() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-gray-950 via-slate-800 to-slate-900">
       <section className="relative py-20 px-6 text-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10"></div>
         <div className="relative max-w-5xl mx-auto">
           <div className="flex items-center justify-center gap-6 mb-6">
-            <img
-              src="/tanstack-circle-logo.png"
-              alt="TanStack Logo"
-              className="w-24 h-24 md:w-32 md:h-32"
-            />
-            <h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.08em]">
-              <span className="text-gray-300">TANSTACK</span>{' '}
+            <h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.02em] transform duration-300 ease-in-out hover:-translate-y-1">
+              <span className="text-gray-300">HI! MY NAME IS</span>{' '}
               <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                START
+                PAUL
               </span>
             </h1>
           </div>
           <p className="text-2xl md:text-3xl text-gray-300 mb-4 font-light">
-            The framework for next generation AI applications
+            I'm a full-stack developer who loves building robust, scalable infrastructure
           </p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-8">
-            Full-stack framework powered by TanStack Router for React and Solid.
-            Build modern applications with server functions, streaming, and type
-            safety.
+            Welcome to my personal website!
           </p>
           <div className="flex flex-col items-center gap-4">
-            <a
-              href="https://tanstack.com/start"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-colors shadow-lg shadow-cyan-500/50"
-            >
-              Documentation
-            </a>
-            <p className="text-gray-400 text-sm mt-2">
-              Begin your TanStack Start journey by editing{' '}
-              <code className="px-2 py-1 bg-slate-700 rounded text-cyan-400">
-                /src/routes/index.tsx
-              </code>
-            </p>
+			<Link
+				to="/contact"
+				className="flex items-center gap-3 p-3 rounded-lg transition-all mb-2 text-white border-cyan-400 border-2 rounded-lg bg-linear-to-r from-cyan-500 to-blue-500 hover:scale-103"
+				activeProps={{
+				className:
+					'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+				}}
+			>
+				<MessageCircle size={24} />
+				<span className="font-bold">Contact</span>
+          </Link>
           </div>
         </div>
       </section>
