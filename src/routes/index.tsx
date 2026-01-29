@@ -53,12 +53,12 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-950 via-slate-800 to-slate-900">
-      <section className="relative py-20 px-6 text-center overflow-hidden">
+      <section className="relative py-20 px-6 text-center overflow-hidden h-[calc(100vh-72px)] flex flex-col justify-center">
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10"></div>
         <div className="relative max-w-5xl mx-auto">
           <div className="flex items-center justify-center gap-6 mb-6">
-            <h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.02em] transform duration-300 ease-in-out hover:-translate-y-1">
-              <span className="text-gray-300">HI! MY NAME IS</span>{' '}
+            <h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.02em] transform duration-300 ease-in-out motion-safe:hover:-translate-y-1">
+              <span className="text-gray-300">HI! I'M</span>{' '}
               <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                 PAUL
               </span>
@@ -73,11 +73,7 @@ function App() {
           <div className="flex flex-col items-center gap-4">
 			<Link
 				to="/contact"
-				className="flex items-center gap-3 p-3 rounded-lg transition-all mb-2 text-white border-cyan-400 border-2 rounded-lg bg-linear-to-r from-cyan-500 to-blue-500 hover:scale-103"
-				activeProps={{
-				className:
-					'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-				}}
+				className="flex items-center gap-3 p-3 rounded-lg transition-all duration-300 mb-2 text-white border-cyan-400 border-2 rounded-lg bg-linear-to-r from-cyan-500 to-blue-500 motion-safe:hover:scale-103"
 			>
 				<MessageCircle size={24} />
 				<span className="font-bold">Contact</span>
