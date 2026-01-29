@@ -105,6 +105,12 @@ function App() {
 					</Link>
 					</div>
 				</div>
+				<div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-4">
+					<motion.span className="text-gray-200 flex flex-col items-center" animate={{ y: 0, opacity: 1 }} initial={{ y: -10, opacity: 0 }} transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}>
+						<p className="mb-[-0.5rem]">Scroll Down</p>
+						<p>&#x2304;</p>
+					</motion.span>
+				</div>
 			</section>
 
 			<section className="py-16 px-6 max-w-7xl mx-auto">
