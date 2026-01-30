@@ -80,9 +80,25 @@ function App() {
 		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900">
 			<section className="relative py-20 px-6 text-center overflow-hidden h-[calc(100vh-72px)] flex flex-col justify-center">
 				<div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 animate-slow-pulse"></div>
-				<div className="relative max-w-5xl mx-auto">
-					<motion.div className="flex items-center justify-center gap-6 mb-6" animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} transition={{ duration: 0.5, ease: 'easeOut' }}>
-						<h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.02em] transform duration-300 ease-in-out motion-safe:hover:-translate-y-1">
+				<div className="relative flex flex-col items-center max-w-5xl mx-auto">
+					<motion.div
+						className="flex items-center justify-center gap-6 mb-6 w-fit"
+						animate={{ 
+							opacity: 1,
+							y: 0,
+							transition: { duration: 0.5, ease: 'easeOut' }
+						}}
+						initial={{ opacity: 0, y: 20 }}
+						whileHover={{
+							scale: 1.05,
+						}}
+						whileTap={{ scale: 0.95 }}
+						transition={{
+							type: 'spring',
+							stiffness: 500,
+							damping: 15
+						}}>
+						<h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.02em]">
 							<span className="text-gray-300">HI! I'M</span>{' '}
 							<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
 								PAUL
