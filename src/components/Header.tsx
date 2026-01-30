@@ -17,9 +17,9 @@ import { useWindowWidth } from '@react-hook/window-size'
 
 const orderedRoutes = [
 	{path: '/', name: 'Home', icon: Home},
-	{path: '/personal', name: 'Personal', icon: SquareFunction},
-	{path: '/professional', name: 'Professional', icon: Network},
-	{path: '/portfolio', name: 'Portfolio', icon: StickyNote},
+	// {path: '/personal', name: 'Personal', icon: SquareFunction},
+	// {path: '/professional', name: 'Professional', icon: Network},
+	// {path: '/portfolio', name: 'Portfolio', icon: StickyNote},
 	{path: '/contact', name: 'Contact', icon: MessageCircle},
 ]
 
@@ -70,7 +70,7 @@ function BurgerMenu({ isOpen, setIsOpen }: {
 			<nav className="flex-1 p-4 overflow-y-auto">
 				{sideMenu}
 
-				{/* Demo Links Start */}
+				{/* Demo Links Start
 
 				<Link
 					to="/demo/start/server-funcs"
@@ -170,7 +170,7 @@ function BurgerMenu({ isOpen, setIsOpen }: {
 					</div>
 				)}
 
-				{/* Demo Links End */}
+				Demo Links End */}
 			</nav>
 		</aside>
 	)
