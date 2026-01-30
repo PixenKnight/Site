@@ -77,7 +77,7 @@ function Card({ icon, title, description }: {
 
 function App() {
 	return (
-		<div className="min-h-screen bg-gray-950 via-slate-800 to-slate-900">
+		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900">
 			<section className="relative py-20 px-6 text-center overflow-hidden h-[calc(100vh-72px)] flex flex-col justify-center">
 				<div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 animate-slow-pulse"></div>
 				<div className="relative max-w-5xl mx-auto">
