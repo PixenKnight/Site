@@ -15,7 +15,11 @@ import {
 
 import { useWindowWidth } from '@react-hook/window-size'
 
-import { useRouter } from '@tanstack/react-router'
+const orderedRoutes = [
+	{path: '/', name: 'Home', icon: Home},
+	{path: '/personal', name: 'Personal', icon: SquareFunction},
+	{path: '/contact', name: 'Contact', icon: MessageCircle},
+]
 
 function BurgerMenu({ isOpen, setIsOpen }: {
 	isOpen: boolean
@@ -24,6 +28,25 @@ function BurgerMenu({ isOpen, setIsOpen }: {
 	const [groupedExpanded, setGroupedExpanded] = useState<
 		Record<string, boolean>
 	>({})
+
+	const sideMenu = []
+	for (const route of orderedRoutes) {
+		sideMenu.push(
+			<Link
+				key={route.path}
+				to={route.path}
+				onClick={() => setIsOpen(false)}
+				className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+				activeProps={{
+					className:
+						'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+				}}
+			>
+				{<route.icon size={20} />}
+				<span className="font-medium">{route.name}</span>
+			</Link>
+		)
+	}
 
 	return (
 		<aside
@@ -43,30 +66,7 @@ function BurgerMenu({ isOpen, setIsOpen }: {
 			</div>
 
 			<nav className="flex-1 p-4 overflow-y-auto">
-				<Link
-					to="/"
-					onClick={() => setIsOpen(false)}
-					className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-					activeProps={{
-						className:
-							'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-					}}
-				>
-					<Home size={20} />
-					<span className="font-medium">Home</span>
-				</Link>
-				<Link
-					to="/contact"
-					onClick={() => setIsOpen(false)}
-					className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-					activeProps={{
-						className:
-							'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
-					}}
-				>
-					<MessageCircle size={20} />
-					<span className="font-medium">Contact</span>
-				</Link>
+				{sideMenu}
 
 				{/* Demo Links Start */}
 
@@ -196,19 +196,16 @@ function HeaderNav({ setIsOpen }: {
 		}
 	}, [windowWidth])
 
-	const { routesByPath } = useRouter()
 	const navbarLinks = []
-	for (const path in routesByPath) {
+	for (const route of orderedRoutes) {
 		// Remove leading and trailing slashes for cleaner display
-		const cleanPath = path.replace(/\/+$/, '').replace(/^\/+/, '')
-		if (cleanPath.includes('/')) continue // Skip dynamic routes
 		navbarLinks.push(
 			<Link
-				key={path}
-				to={path}
-				className={`pb-[0.12rem] ${highlightRoute(path)}`}
+				key={route.path}
+				to={route.path}
+				className={`pb-[0.12rem] ${highlightRoute(route.path)}`}
 			>
-				{path === '/' ? 'Home' : cleanPath.replace(/\b\w/g, c => c.toUpperCase())}
+				{route.name}
 			</Link>
 		)
 	}
