@@ -18,6 +18,7 @@ import { useWindowWidth } from '@react-hook/window-size'
 const orderedRoutes = [
 	{path: '/', name: 'Home', icon: Home},
 	{path: '/personal', name: 'Personal', icon: SquareFunction},
+	{path: '/professional', name: 'Professional', icon: Network},
 	{path: '/contact', name: 'Contact', icon: MessageCircle},
 ]
 
