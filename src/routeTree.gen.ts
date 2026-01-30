@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfessionalRouteImport } from './routes/professional'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PersonalRouteImport } from './routes/personal'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
@@ -24,6 +25,11 @@ import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ss
 const ProfessionalRoute = ProfessionalRouteImport.update({
   id: '/professional',
   path: '/professional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PersonalRoute = PersonalRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/personal': typeof PersonalRoute
+  '/portfolio': typeof PortfolioRoute
   '/professional': typeof ProfessionalRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/personal': typeof PersonalRoute
+  '/portfolio': typeof PortfolioRoute
   '/professional': typeof ProfessionalRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/personal': typeof PersonalRoute
+  '/portfolio': typeof PortfolioRoute
   '/professional': typeof ProfessionalRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/'
     | '/contact'
     | '/personal'
+    | '/portfolio'
     | '/professional'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/'
     | '/contact'
     | '/personal'
+    | '/portfolio'
     | '/professional'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/'
     | '/contact'
     | '/personal'
+    | '/portfolio'
     | '/professional'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
   PersonalRoute: typeof PersonalRoute
+  PortfolioRoute: typeof PortfolioRoute
   ProfessionalRoute: typeof ProfessionalRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -180,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/professional'
       fullPath: '/professional'
       preLoaderRoute: typeof ProfessionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/personal': {
@@ -259,6 +279,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
   PersonalRoute: PersonalRoute,
+  PortfolioRoute: PortfolioRoute,
   ProfessionalRoute: ProfessionalRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
