@@ -100,9 +100,10 @@ function RouteComponent() {
 						<span className="text-gray-200">Contact</span>{' '}
 						<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Me</span>
 					</h1>
-					<p>
-						If you'd like to get in touch, please leave your contact information below! I'll reach out as soon as possible.
-					</p>
+					<p>If you'd like to get in touch, please leave your contact information below! I'll reach out as soon as possible.</p>
+					<p>Whether it's for professional inquiries, collaborations, or just to say hello, I'm excited to hear from you!</p>
+					<br/>
+					<p>Form submissions are handled by the good folks at <a href="https://formsubmit.co/" target="_blank" className="text-cyan-400 hover:underline">FormSubmit</a>. Apologies if your message gets filtered by their spam protection.</p>
 				</div>
 			</section>
 			<section className="max-w-4xl md:mx-auto mx-4 p-8 bg-gray-800 rounded-lg shadow-lg relative z-10">
