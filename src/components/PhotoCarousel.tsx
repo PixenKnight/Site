@@ -1,4 +1,4 @@
-import { useEffect, useState, Dispatch, SetStateAction } from "react"
+import { useState, Dispatch, SetStateAction } from "react"
 import { preload } from 'react-dom'
 
 import {
@@ -38,8 +38,9 @@ function Dots({ count, selected, setSelected }: {
 	)
 }
 
-function Cards({ photos, selected, setSelected }: {
+function Cards({ photos, altTexts, selected, setSelected }: {
 	photos: string[],
+	altTexts: string[],
 	selected: number,
 	setSelected: Dispatch<SetStateAction<number>>,
 }) {
@@ -87,7 +88,7 @@ function Cards({ photos, selected, setSelected }: {
 					layout
 					draggable="false"
 					src={photos[i]}
-					alt="Picture of Paul Maresquier's cats Wolf and Dorito"
+					alt={altTexts[i]}
 					className="rounded-lg shadow-md h-128 object-cover p-0 select-none touch-pinch-zoom touch-pan-y"
 					animate={{
 						opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0),
@@ -126,7 +127,7 @@ function Cards({ photos, selected, setSelected }: {
 	)
 }
 
-export default function PhotoCarousel({ photos }: { photos: string[] }) {
+export default function PhotoCarousel({ photos, altTexts }: { photos: string[], altTexts: string[] }) {
 	const [ selected, setSelected ] = useState(0);
 
 	for (let i = 0; i < photos.length; i++) {
@@ -139,6 +140,7 @@ export default function PhotoCarousel({ photos }: { photos: string[] }) {
 		<div className="flex flex-col w-[50%] min-w-[24rem]">
 			<Cards
 				photos={photos}
+				altTexts={altTexts}
 				selected={selected}
 				setSelected={setSelected}
 			/>
