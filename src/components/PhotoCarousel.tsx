@@ -86,7 +86,7 @@ function Cards({ photos, selected, setSelected }: {
 					draggable="false"
 					src={photos[i]}
 					alt="Picture of Paul Maresquier's cats Wolf and Dorito"
-					className="rounded-lg shadow-md h-128 object-cover p-0 select-none touch-pinch-zoom"
+					className="rounded-lg shadow-md h-128 object-cover p-0 select-none touch-pinch-zoom pan-y"
 					animate={{
 						opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0),
 						visibility: (isSelected || isLeft || isRight) ? "visible" : "hidden",
