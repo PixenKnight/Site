@@ -49,7 +49,19 @@ function Cards({ photos, selected, setSelected }: {
 	}
 
 	return (
-		<div className="flex flex-row justify-center align-center items-center mb-4 relative w-full max-w-[100%]">
+		<motion.div 
+			className="flex flex-row justify-center align-center items-center mb-4 relative w-full max-w-[100%]"
+			drag="x"
+			dragConstraints={{ left: 0, right: 0 }}
+			dragElastic={0.05}
+			onDragEnd={(_, info) => {
+				if (info.offset.x > 80 && selected > 0) {
+					setSelected(selected - 1)
+				} else if (info.offset.x < -80 && selected < photos.length - 1) {
+					setSelected(selected + 1)
+			}
+      }}
+		>
 			<motion.div
 				layout
 				animate={{
@@ -71,9 +83,10 @@ function Cards({ photos, selected, setSelected }: {
 				return <motion.img
 					key={i}
 					layout
+					draggable="false"
 					src={photos[i]}
 					alt="Picture of Paul Maresquier's cats Wolf and Dorito"
-					className="rounded-lg shadow-md h-128 object-cover p-0"
+					className="rounded-lg shadow-md h-128 object-cover p-0 select-none touch-pinch-zoom"
 					animate={{
 						opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0),
 						visibility: (isSelected || isLeft || isRight) ? "visible" : "hidden",
@@ -87,13 +100,13 @@ function Cards({ photos, selected, setSelected }: {
 						margin: 0,
 					}}
 					onClick={() => {if (isSelected || isLeft || isRight) setSelected(i)}}
+					onPan={(e, pointInfo) => {console.log(e); console.log(pointInfo)}}
 					whileHover={{ cursor: (isSelected || isLeft || isRight) ? "pointer" : "auto" }}
 					transition={transitionOptions}
 				/>
 			})}
 			<motion.div
 				layout
-				className="min-w-[15rem]"
 				animate={{
 					display: selected === (photos.length - 1) ? "block" : "none",
 					width: selected === (photos.length - 1) ? "15rem" : 0,
@@ -105,7 +118,7 @@ function Cards({ photos, selected, setSelected }: {
 				}}
 				transition={transitionOptions}
 			/>
-		</div>
+		</motion.div>
 	)
 }
 
