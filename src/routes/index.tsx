@@ -42,7 +42,7 @@ const cards = [
 		icon: <CircuitBoard className="w-12 h-12 text-cyan-400" />,
 		title: 'Low-level Programming',
 		description:
-			'Although tedious, I find RISC-V Assembly anc C programming fascinating. Understanding low-level programming enhances my overall coding skills and allows me to optimize performance-critical applications.',
+			'Although tedious, I find RISC-V Assembly and C programming fascinating. Understanding low-level programming enhances my overall coding skills and allows me to optimize performance-critical applications.',
 	},
 	{
 		icon: <Sparkles className="w-12 h-12 text-cyan-400" />,
