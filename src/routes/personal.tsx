@@ -40,7 +40,7 @@ function RouteComponent() {
 
 	return (
 		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900">
-			<section className="h-fit top-0 relative py-10 px-6 items-center overflow-hiddenflex">
+			<section className="h-fit top-0 relative py-10 px-6 items-center overflow-hidden">
 				<div className="flex justify-center items-center gap-4 max-w-5xl mx-auto md:flex-row not-md:flex-col">
 					<motion.img
 						src={photoPath}
