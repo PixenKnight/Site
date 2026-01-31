@@ -2,25 +2,23 @@ import { Link, useLocation } from '@tanstack/react-router'
 
 import { useEffect, useState } from 'react'
 import {
-	ChevronDown,
-	ChevronRight,
 	Home,
 	Menu,
-	Network,
-	SquareFunction,
-	StickyNote,
+	SquareCode,
+	CircleUserRound,
+	BriefcaseBusiness,
 	X,
-	MessageCircle
+	MailPlus
 } from 'lucide-react'
 
 import { useWindowWidth } from '@react-hook/window-size'
 
 const orderedRoutes = [
 	{path: '/', name: 'Home', icon: Home},
-	// {path: '/personal', name: 'Personal', icon: SquareFunction},
-	// {path: '/professional', name: 'Professional', icon: Network},
-	// {path: '/portfolio', name: 'Portfolio', icon: StickyNote},
-	{path: '/contact', name: 'Contact', icon: MessageCircle},
+	{path: '/personal', name: 'Personal', icon: CircleUserRound},
+	// {path: '/professional', name: 'Professional', icon: SquareCode},
+	// {path: '/portfolio', name: 'Portfolio', icon: BriefcaseBusiness},
+	{path: '/contact', name: 'Contact', icon: MailPlus},
 ]
 
 function BurgerMenu({ isOpen, setIsOpen }: {
