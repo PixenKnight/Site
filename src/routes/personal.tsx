@@ -14,16 +14,15 @@ export const Route = createFileRoute('/personal')({
 })
 
 const photos = [
-	"/cat-photos/Boys-Clean.JPEG",
 	"/cat-photos/Boys-Eep.JPEG",
-	"/cat-photos/Dorito-Coffee.JPEG",
 	"/cat-photos/Dorito-Desk.JPEG",
-	"/cat-photos/Dorito-Distracted.JPEG",
-	"/cat-photos/Dorito-Floor.JPEG",
-	"/cat-photos/Wolf-Computer.JPEG",
-	"/cat-photos/Wolf-Exposed.JPEG",
-	"/cat-photos/Wolf-Sniff.JPEG",
 	"/cat-photos/Wolf-Squish.JPEG",
+]
+
+const altTexts = [
+	"Wolf and Dorito sleeping by my desk.",
+	"Dorito sleeping on the cat bed I have on my desk.",
+	"Wolf being squished by Mya with a ruler."
 ]
 
 function RouteComponent() {
@@ -73,6 +72,7 @@ function RouteComponent() {
 				<div className="flex align-center justify-center">
 					<PhotoCarousel
 						photos={photos}
+						altTexts={altTexts}
 					/>
 				</div>
 			</section>
