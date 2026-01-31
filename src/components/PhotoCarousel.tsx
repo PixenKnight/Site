@@ -67,11 +67,13 @@ function Cards({ photos, selected, setSelected }: {
 				animate={{
 					display: selected === 0 ? "block" : "none",
 					width: selected === 0 ? "15rem" : 0,
-					minWidth: selected === 0 ? "15rem" : 0
+					minWidth: selected === 0 ? "15rem" : 0,
+					margin: selected === 0 ? "0 0.5rem 0 0.5rem" : "0"
 				}}
 				initial={{
 					display: "none",
 					width: 0,
+					margin: 0
 				}}
 				transition={transitionOptions}
 			/>
@@ -110,11 +112,13 @@ function Cards({ photos, selected, setSelected }: {
 				animate={{
 					display: selected === (photos.length - 1) ? "block" : "none",
 					width: selected === (photos.length - 1) ? "15rem" : 0,
-					minWidth: selected === (photos.length - 1) ? "15rem" : 0
+					minWidth: selected === (photos.length - 1) ? "15rem" : 0,
+					margin: selected === (photos.length - 1) ? "0 0.5rem 0 0.5rem" : "0"
 				}}
 				initial={{
 					display: "none",
 					width: 0,
+					margin: 0
 				}}
 				transition={transitionOptions}
 			/>
