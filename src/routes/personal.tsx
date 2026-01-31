@@ -45,7 +45,7 @@ function RouteComponent() {
 					<motion.img
 						src={photoPath}
 						alt="Picture of Paul Maresquier (that's me!) with his girlfriend's cat Shanti"
-						className="mr-6 my-12 md:rounded-xl not-md:rounded-full shadow-lg max-w-xs md:max-w-sm outline-2 outline-offset-4"
+						className="mr-6 md:my-8 not-md:my-4 md:rounded-xl not-md:rounded-full shadow-lg max-w-xs md:max-w-sm outline-2 outline-offset-4"
 						animate={{
 							outlineColor: ["#00b8db", "#ad46ff", "#00b8db"],
 							boxShadow: ["0 0 20px #00b8db", "0 0 20px #ad46ff", "0 0 20px #00b8db"]
