@@ -1,6 +1,5 @@
 import { useWindowWidth } from '@react-hook/window-size'
 import { createFileRoute } from '@tanstack/react-router'
-import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 import Photo from '../components/Photo'
@@ -46,7 +45,10 @@ function RouteComponent() {
 					<Photo
 						src={photoPath}
 						alt="Picture of me with my girlfriend's cat Shanti"
-						tailwindClasses="mr-6 md:my-8 not-md:my-4 md:rounded-xl not-md:rounded-full shadow-lg max-w-xs md:max-w-sm outline-2 outline-offset-4"
+						tailwindClasses={{ 
+							imgClasses: "md:rounded-xl not-md:rounded-full outline-2 outline-offset-4 md:max-w-100 md:max-h-100",
+							divClasses: "mr-10 md:my-8 not-md:my-4 shadow-lg max-size-xs md:max-size-max"
+						}}
 						props={{
 							animate: {
 								outlineColor: ["#00b8db", "#ad46ff", "#00b8db"],

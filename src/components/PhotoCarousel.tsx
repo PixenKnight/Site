@@ -6,7 +6,7 @@ import {
 	ChevronRight
 } from "lucide-react"
 
-import { motion, Easing, PanInfo } from "motion/react"
+import { motion, Easing } from "motion/react"
 
 import Photo from "./Photo"
 
@@ -53,7 +53,7 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 
 	return (
 		<motion.div 
-			className="flex flex-row justify-center align-center items-center mb-4 relative w-full max-w-[100%]"
+			className="flex flex-row justify-center align-center items-center mb-4 relative w-full max-w-[100%] max-h-128"
 			drag="x"
 			dragConstraints={{ left: 0, right: 0 }}
 			dragElastic={0.05}
@@ -69,14 +69,14 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 				layout
 				animate={{
 					display: selected === 0 ? "block" : "none",
-					width: selected === 0 ? "15rem" : 0,
-					minWidth: selected === 0 ? "15rem" : 0,
-					margin: selected === 0 ? "0 0.5rem 0 0.5rem" : "0"
+					width: selected === 0 ? "10rem" : "0rem",
+					minWidth: selected === 0 ? "10rem" : "0rem",
+					margin: selected === 0 ? "0rem 0.5rem 0rem 0.5rem" : "0rem"
 				}}
 				initial={{
 					display: "none",
-					width: 0,
-					margin: 0
+					width: "0rem",
+					margin: "0rem"
 				}}
 				transition={transitionOptions}
 			/>
@@ -86,27 +86,26 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 				const isRight = selected === (i - 1)
 
 				return <Photo
+					key={i}
 					src={photos[i]}
 					alt={altTexts[i]}
-					tailwindClasses="rounded-lg shadow-md h-128 object-cover p-0 select-none touch-pinch-zoom touch-pan-y"
+					tailwindClasses="rounded-lg shadow-md object-cover p-0 select-none touch-pinch-zoom touch-pan-y h-100 w-max"
 					props={{
-						key: i,
 						layout: true,
 						draggable: "false",
 						animate: {
 							opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0),
 							visibility: (isSelected || isLeft || isRight) ? "visible" : "hidden",
-							width: isSelected ? "auto" : ((isLeft || isRight) ? "15rem" : 0),
-							margin: (isSelected || isLeft || isRight) ? "0 0.5rem 0 0.5rem" : "0",
+							width: isSelected ? "auto" : ((isLeft || isRight) ? "10rem" : 0),
+							margin: (isSelected || isLeft || isRight) ? "0rem 0.5rem 0rem 0.5rem" : "0rem",
 						},
 						initial: {
 							opacity: 0,
 							visibility: "hidden",
 							width: 0,
-							margin: 0,
+							margin: "0rem",
 						},
 						onClick: () => {if (isSelected || isLeft || isRight) setSelected(i)},
-						onPan: (e: PointerEvent, pointInfo: PanInfo) => {console.log(e); console.log(pointInfo)},
 						transition: transitionOptions
 					}}
 				/>
@@ -115,14 +114,14 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 				layout
 				animate={{
 					display: selected === (photos.length - 1) ? "block" : "none",
-					width: selected === (photos.length - 1) ? "15rem" : 0,
-					minWidth: selected === (photos.length - 1) ? "15rem" : 0,
-					margin: selected === (photos.length - 1) ? "0 0.5rem 0 0.5rem" : "0"
+					width: selected === (photos.length - 1) ? "10rem" : "0rem",
+					minWidth: selected === (photos.length - 1) ? "10rem" : "0rem",
+					margin: selected === (photos.length - 1) ? "0rem 0.5rem 0rem 0.5rem" : "0rem"
 				}}
 				initial={{
 					display: "none",
-					width: 0,
-					margin: 0
+					width: "0rem",
+					margin: "0rem"
 				}}
 				transition={transitionOptions}
 			/>
