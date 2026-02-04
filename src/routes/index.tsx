@@ -24,7 +24,7 @@ const cards = [
 		icon: <Server className="w-12 h-12 text-cyan-400" />,
 		title: 'Backend Expertise',
 		description:
-			'Skilled in building robust backend systems using Node.js, Express, and databases like MongoDB, Redis, and MySQL (and other SQL RDBs). I ensure seamless data flow and efficient server-side operations for my applications.',
+			'Skilled in building robust backend systems using Node.js, Express, and databases like MongoDB, Redis, and MySQL (and other SQL RDBs). This ensures seamless data flow and efficient server-side operations for my applications.',
 	},
 	{
 		icon: <RouteIcon className="w-12 h-12 text-cyan-400" />,
@@ -36,7 +36,7 @@ const cards = [
 		icon: <SquareTerminal className="w-12 h-12 text-cyan-400" />,
 		title: 'Multilingual Developer',
 		description:
-			'Fluent in multiple programming languages and frameworks, enabling me to build applications that are both performant and maintainable. From Python to Java, from bare React to Expo, I adapt quickly to project needs.',
+			'Fluent in multiple programming languages and frameworks, enabling me to build applications that are both performant and maintainable. From Python to Java, from React to Expo, I adapt quickly to project needs.',
 	},
 	{
 		icon: <CircuitBoard className="w-12 h-12 text-cyan-400" />,
@@ -48,7 +48,7 @@ const cards = [
 		icon: <Sparkles className="w-12 h-12 text-cyan-400" />,
 		title: 'AI-Powered Solutions',
 		description:
-			'Graduated with a concentration in Artificial Intelligence, I leverage AI and machine learning techniques to enhance and develop intelligent applications that solve complex problems.',
+			'Graduated with a BS in Computer Science and a concentration in Artificial Intelligence, I leverage AI and machine learning techniques to enhance and develop intelligent applications that solve complex problems.',
 	},
 ]
 

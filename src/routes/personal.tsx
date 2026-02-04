@@ -22,7 +22,7 @@ const photos = [
 const altTexts = [
 	"Wolf and Dorito sleeping by my desk.",
 	"Dorito sleeping on the cat bed I have on my desk.",
-	"Wolf being squished by Mya with a ruler."
+	"Wolf being squished by my girlfriend with a ruler."
 ]
 
 function RouteComponent() {
