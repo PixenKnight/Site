@@ -6,7 +6,9 @@ import {
 	ChevronRight
 } from "lucide-react"
 
-import { motion, Easing } from "motion/react"
+import { motion, Easing, PanInfo } from "motion/react"
+
+import Photo from "./Photo"
 
 function Dots({ count, selected, setSelected }: {
 	count: number,
@@ -83,29 +85,30 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 				const isLeft = selected === (i + 1)
 				const isRight = selected === (i - 1)
 
-				return <motion.img
-					key={i}
-					layout
-					draggable="false"
+				return <Photo
 					src={photos[i]}
 					alt={altTexts[i]}
-					className="rounded-lg shadow-md h-128 object-cover p-0 select-none touch-pinch-zoom touch-pan-y"
-					animate={{
-						opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0),
-						visibility: (isSelected || isLeft || isRight) ? "visible" : "hidden",
-						width: isSelected ? "auto" : ((isLeft || isRight) ? "15rem" : 0),
-						margin: (isSelected || isLeft || isRight) ? "0 0.5rem 0 0.5rem" : "0",
+					tailwindClasses="rounded-lg shadow-md h-128 object-cover p-0 select-none touch-pinch-zoom touch-pan-y"
+					props={{
+						key: i,
+						layout: true,
+						draggable: "false",
+						animate: {
+							opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0),
+							visibility: (isSelected || isLeft || isRight) ? "visible" : "hidden",
+							width: isSelected ? "auto" : ((isLeft || isRight) ? "15rem" : 0),
+							margin: (isSelected || isLeft || isRight) ? "0 0.5rem 0 0.5rem" : "0",
+						},
+						initial: {
+							opacity: 0,
+							visibility: "hidden",
+							width: 0,
+							margin: 0,
+						},
+						onClick: () => {if (isSelected || isLeft || isRight) setSelected(i)},
+						onPan: (e: PointerEvent, pointInfo: PanInfo) => {console.log(e); console.log(pointInfo)},
+						transition: transitionOptions
 					}}
-					initial={{
-						opacity: 0,
-						visibility: "hidden",
-						width: 0,
-						margin: 0,
-					}}
-					onClick={() => {if (isSelected || isLeft || isRight) setSelected(i)}}
-					onPan={(e, pointInfo) => {console.log(e); console.log(pointInfo)}}
-					whileHover={{ cursor: (isSelected || isLeft || isRight) ? "pointer" : "auto" }}
-					transition={transitionOptions}
 				/>
 			})}
 			<motion.div

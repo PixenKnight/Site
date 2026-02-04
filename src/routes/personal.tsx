@@ -3,6 +3,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
+import Photo from '../components/Photo'
+
 import {
 	SquareArrowOutUpRight
 } from 'lucide-react'
@@ -41,15 +43,20 @@ function RouteComponent() {
 		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900">
 			<section className="h-fit top-0 relative py-10 px-6 items-center">
 				<div className="flex justify-center items-center gap-4 max-w-5xl mx-auto md:flex-row not-md:flex-col">
-					<motion.img
+					<Photo
 						src={photoPath}
-						alt="Picture of Paul Maresquier (that's me!) with his girlfriend's cat Shanti"
-						className="mr-6 md:my-8 not-md:my-4 md:rounded-xl not-md:rounded-full shadow-lg max-w-xs md:max-w-sm outline-2 outline-offset-4"
-						animate={{
-							outlineColor: ["#00b8db", "#ad46ff", "#00b8db"],
-							boxShadow: ["0 0 20px #00b8db", "0 0 20px #ad46ff", "0 0 20px #00b8db"]
+						alt="Picture of me with my girlfriend's cat Shanti"
+						tailwindClasses="mr-6 md:my-8 not-md:my-4 md:rounded-xl not-md:rounded-full shadow-lg max-w-xs md:max-w-sm outline-2 outline-offset-4"
+						props={{
+							animate: {
+								outlineColor: ["#00b8db", "#ad46ff", "#00b8db"],
+								boxShadow: ["0 0 20px #00b8db", "0 0 20px #ad46ff", "0 0 20px #00b8db"]
+							},
+							transition: {
+								duration: 10,
+								repeat: Infinity
+							}
 						}}
-						transition={{ duration: 10, repeat: Infinity }}
 					/>					
 					<div>
 						<h1 className="text-5xl md:text-6xl not-md:text-center font-black text-white [letter-spacing:-0.02em]">
