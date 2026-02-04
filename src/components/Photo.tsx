@@ -5,6 +5,7 @@ import { motion, MotionProps } from "motion/react"
 interface PhotoProps {
 	src: string
 	alt?: string
+	hoverAltEnabled?: boolean
 	tailwindClasses?: string | { auto?: string, imgClasses?: string, divClasses?: string }
 	props?: MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any> | { 
 		auto?: MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any>, 
@@ -99,13 +100,33 @@ function filterProps(props: MotionProps & DetailedHTMLProps<HTMLAttributes<any>,
 	return { imgProps, divProps }
 }
 
-export default function Photo({src, alt, tailwindClasses, props}: PhotoProps & MotionProps) {
+const hoverImageVariants = {
+	normal: {},
+	hovered: {}
+}
+
+const hoverAltTextVariants = {
+	normal: { y: "100%", opacity: 0 },
+	hovered: { y: "0%", opacity: 1 }
+}
+
+export default function Photo({src, alt, hoverAltEnabled, tailwindClasses, props}: PhotoProps & MotionProps) {
 	// Move margin and padding to motion div to avoid description text issues
 	const [ imgClasses, setImgClasses ] = useState("")
 	const [ divClasses, setDivClasses ] = useState("")
 
 	const [ imgProps, setImgProps ] = useState<MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement>>({})
 	const [ divProps, setDivProps ] = useState<MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>>({})
+
+	const imgRoundingClass = imgClasses
+		.split(" ")
+		.filter(c => c.includes("rounded"))
+		.join(" ")
+	const divRoundingClass = divClasses
+		.split(" ")
+		.filter(c => c.includes("rounded"))
+		.join(" ")
+	const unalteredRounding = imgRoundingClass ?? divRoundingClass ?? ""
 
 	useEffect(() => {
 		if (!tailwindClasses) return
@@ -144,11 +165,13 @@ export default function Photo({src, alt, tailwindClasses, props}: PhotoProps & M
 
 			setImgClasses(imgClasses)
 			setDivClasses(divClasses)
+			
 			return
 		}
 		const { imgClasses, divClasses } = filterTailwindClasses(tailwindClasses)
 		setImgClasses(imgClasses)
 		setDivClasses(divClasses)
+
 	}, [tailwindClasses])
 
 	useEffect(() => {
@@ -191,8 +214,11 @@ export default function Photo({src, alt, tailwindClasses, props}: PhotoProps & M
 	return (
 		<motion.div
 			layout
-			className={divClasses}
+			className={`${divClasses} relative`}
 			draggable={divProps?.draggable}
+			variants={hoverImageVariants}
+			whileHover={hoverAltEnabled ? "hovered" : "normal"}
+			initial="normal"
 			{...divProps}
 		>
 			{/* Image with motion effects */}
@@ -202,6 +228,37 @@ export default function Photo({src, alt, tailwindClasses, props}: PhotoProps & M
 				className={imgClasses}
 				{...imgProps}
 			/>
+
+			{/* Hover alt text */}
+			
+			<div className={`absolute bottom-0 left-0 right-0 top-0 overflow-hidden pointer-events-none ${unalteredRounding}`}>
+				{/* Variant 1: linear fade from black */}
+				{/* <motion.div 
+					className="absolute bottom-0 left-0 w-[105%] bg-gradient-to-t from-black/80 from-70% to-transparent pointer-events-auto"
+					variants={hoverAltTextVariants}
+					transition={{ duration: 0.3, ease: "easeInOut" }}
+				>
+					<p className="text-white text-sm m-2 select-text">{alt}</p>
+				</motion.div> */}
+
+				{/* Variant 2: solid white background */}
+				{/* <motion.div 
+					className="absolute bottom-0 left-0 w-[105%] bg-white pointer-events-auto"
+					variants={hoverAltTextVariants}
+					transition={{ duration: 0.3, ease: "easeInOut" }}
+				>
+					<p className="text-black text-sm m-2 select-text">{alt}</p>
+				</motion.div> */}
+
+				{/* Variant 3: solid slate background */}
+				<motion.div 
+					className="absolute bottom-0 left-0 w-[105%] bg-slate-800 pointer-events-auto"
+					variants={hoverAltTextVariants}
+					transition={{ duration: 0.3, ease: "easeInOut" }}
+				>
+					<p className="text-white text-sm m-2 select-text">{alt}</p>
+				</motion.div>
+			</div>
 		</motion.div>
 	)
 }

@@ -74,22 +74,25 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 					key={i}
 					src={photos[i]}
 					alt={altTexts[i]}
+					hoverAltEnabled={isSelected}
 					layout
 					tailwindClasses={{
 						auto: "rounded-lg shadow-md object-cover select-none touch-pinch-zoom touch-pan-y",
-						imgClasses: "h-100",
-						divClasses: "w-max min-w-0 max-w-fit"
+						imgClasses: "h-100 max-w-full",
+						divClasses: "min-w-0 max-w-fit"
 					}}
 					props={{
 						divProps: {
 							animate: {
-								display: (isSelected || isLeft || isRight) ? "block" : "none",
+								visibility: (isSelected || isLeft || isRight) ? "visible" : "hidden",
 								margin: (isSelected ? ((i !== 0 && i !== photos.length - 1) ? "0rem 1rem 0rem 1rem" : (i === 0 ? "0rem 1rem 0rem 0rem" : "0rem 0rem 0rem 1rem")) : "0rem 0rem 0rem 0rem"),
+								width: isSelected ? "auto" : (isLeft || isRight ? "100px" : 0),
 								flexShrink: isSelected ? 0 : 1,
 							},
 							initial: {
-								display: "none",
-								margin: "0rem 0rem",
+								visibility: "hidden",
+								margin: "0rem 0rem 0rem 0rem",
+								width: 0,
 								flexShrink: 1,
 							},
 							onClick: () => {if (isSelected || isLeft || isRight) setSelected(i)},
@@ -98,12 +101,10 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 						imgProps: {
 							draggable: "false",
 							animate: {
-								opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0),
-								width: isSelected ? "auto" : (isLeft || isRight ? "100px" : "0px"),
+								opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0)
 							},
 							initial: {
-								opacity: 0,
-								width: 0,
+								opacity: 0
 							},
 							transition: transitionOptions
 						}

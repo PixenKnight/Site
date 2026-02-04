@@ -18,12 +18,14 @@ const photos = [
 	"/cat-photos/Boys-Eep.JPEG",
 	"/cat-photos/Dorito-Desk.JPEG",
 	"/cat-photos/Wolf-Squish.JPEG",
+	"/cat-photos/Boys-Clean.JPEG",
 ]
 
 const altTexts = [
 	"Wolf and Dorito sleeping by my desk.",
 	"Dorito sleeping on the cat bed I have on my desk.",
-	"Wolf being squished by my girlfriend with a ruler."
+	"Wolf being squished by my girlfriend with a ruler.",
+	"Wolf and dorito cleaning each other."
 ]
 
 function RouteComponent() {
@@ -45,8 +47,9 @@ function RouteComponent() {
 					<Photo
 						src={photoPath}
 						alt="Picture of me with my girlfriend's cat Shanti"
+						hoverAltEnabled
 						tailwindClasses={{ 
-							imgClasses: "md:rounded-xl not-md:rounded-full outline-2 outline-offset-4 md:w-[64rem] md:h-auto",
+							imgClasses: "md:rounded-xl not-md:rounded-lg outline-2 outline-offset-4 md:w-[64rem] md:h-auto",
 							divClasses: "md:mr-10 md:my-8 not-md:my-4 shadow-lg not-md:max-w-xs"
 						}}
 						props={{
