@@ -47,7 +47,7 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 	setSelected: Dispatch<SetStateAction<number>>,
 }) {
 	const transitionOptions = {
-		duration: 0.5,
+		duration: 10,
 		ease: "easeInOut" as Easing
 	}
 
@@ -62,24 +62,9 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 					setSelected(selected - 1)
 				} else if (info.offset.x < -80 && selected < photos.length - 1) {
 					setSelected(selected + 1)
-			}
-      }}
+				}
+			}}
 		>
-			<motion.div
-				layout
-				animate={{
-					display: selected === 0 ? "block" : "none",
-					width: selected === 0 ? "10rem" : "0rem",
-					minWidth: selected === 0 ? "10rem" : "0rem",
-					margin: selected === 0 ? "0rem 0.5rem 0rem 0.5rem" : "0rem"
-				}}
-				initial={{
-					display: "none",
-					width: "0rem",
-					margin: "0rem"
-				}}
-				transition={transitionOptions}
-			/>
 			{photos.map((_, i) => {
 				const isSelected = selected === i
 				const isLeft = selected === (i + 1)
@@ -89,42 +74,42 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 					key={i}
 					src={photos[i]}
 					alt={altTexts[i]}
-					tailwindClasses="rounded-lg shadow-md object-cover p-0 select-none touch-pinch-zoom touch-pan-y h-100 w-max"
+					layout
+					tailwindClasses={{
+						auto: "rounded-lg shadow-md object-cover select-none touch-pinch-zoom touch-pan-y",
+						imgClasses: "h-100",
+						divClasses: "w-max min-w-0 max-w-fit"
+					}}
 					props={{
-						layout: true,
-						draggable: "false",
-						animate: {
-							opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0),
-							visibility: (isSelected || isLeft || isRight) ? "visible" : "hidden",
-							width: isSelected ? "auto" : ((isLeft || isRight) ? "10rem" : 0),
-							margin: (isSelected || isLeft || isRight) ? "0rem 0.5rem 0rem 0.5rem" : "0rem",
+						divProps: {
+							animate: {
+								display: (isSelected || isLeft || isRight) ? "block" : "none",
+								margin: (isSelected ? ((i !== 0 && i !== photos.length - 1) ? "0rem 1rem 0rem 1rem" : (i === 0 ? "0rem 1rem 0rem 0rem" : "0rem 0rem 0rem 1rem")) : "0rem 0rem 0rem 0rem"),
+								flexShrink: isSelected ? 0 : 1,
+							},
+							initial: {
+								display: "none",
+								margin: "0rem 0rem",
+								flexShrink: 1,
+							},
+							onClick: () => {if (isSelected || isLeft || isRight) setSelected(i)},
+							transition: transitionOptions
 						},
-						initial: {
-							opacity: 0,
-							visibility: "hidden",
-							width: 0,
-							margin: "0rem",
-						},
-						onClick: () => {if (isSelected || isLeft || isRight) setSelected(i)},
-						transition: transitionOptions
+						imgProps: {
+							draggable: "false",
+							animate: {
+								opacity: isSelected ? 1 : ((isLeft || isRight) ? 0.5 : 0),
+								width: isSelected ? "auto" : (isLeft || isRight ? "100px" : "0px"),
+							},
+							initial: {
+								opacity: 0,
+								width: 0,
+							},
+							transition: transitionOptions
+						}
 					}}
 				/>
 			})}
-			<motion.div
-				layout
-				animate={{
-					display: selected === (photos.length - 1) ? "block" : "none",
-					width: selected === (photos.length - 1) ? "10rem" : "0rem",
-					minWidth: selected === (photos.length - 1) ? "10rem" : "0rem",
-					margin: selected === (photos.length - 1) ? "0rem 0.5rem 0rem 0.5rem" : "0rem"
-				}}
-				initial={{
-					display: "none",
-					width: "0rem",
-					margin: "0rem"
-				}}
-				transition={transitionOptions}
-			/>
 		</motion.div>
 	)
 }
@@ -139,7 +124,7 @@ export default function PhotoCarousel({ photos, altTexts }: { photos: string[], 
 	}
 
 	return (
-		<div className="flex flex-col w-[50%] min-w-[24rem]">
+		<div className="flex flex-col md:w-[60%] w-[95%]">
 			<Cards
 				photos={photos}
 				altTexts={altTexts}

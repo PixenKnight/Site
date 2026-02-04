@@ -89,9 +89,7 @@ function App() {
 							transition: { duration: 0.5, ease: 'easeOut' }
 						}}
 						initial={{ opacity: 0, y: 20 }}
-						whileHover={{
-							scale: 1.05,
-						}}
+						whileHover={{ scale: 1.05 }}
 						whileTap={{ scale: 0.95 }}
 						transition={{
 							type: 'spring',

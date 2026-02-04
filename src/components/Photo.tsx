@@ -1,11 +1,16 @@
 import { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from "react"
 import { motion, MotionProps } from "motion/react"
 
+
 interface PhotoProps {
 	src: string
 	alt?: string
-	tailwindClasses?: string | { imgClasses: string, divClasses: string }
-	props?: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+	tailwindClasses?: string | { auto?: string, imgClasses?: string, divClasses?: string }
+	props?: MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any> | { 
+		auto?: MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any>, 
+		imgProps?: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement>,
+		divProps?: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+	}
 }
 
 function filterTailwindClasses(tailwindClasses: string | undefined) {
@@ -54,10 +59,10 @@ function filterTailwindClasses(tailwindClasses: string | undefined) {
 }
 
 // Need to separate 'key' from other props because React doesn't like it when it's spread into the element props
-function filterProps(props: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> | undefined) {
+function filterProps(props: MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any> | undefined) {
 	if (!props) return { imgProps: {}, divProps: {} }
 
-	const imgProps: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> = {}
+	const imgProps: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement> = {}
 	const divProps: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> = {}
 
 	Object.entries(props).forEach(([key, value]) => {
@@ -94,19 +99,51 @@ function filterProps(props: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLD
 	return { imgProps, divProps }
 }
 
-export default function Photo({src, alt, tailwindClasses, props}: PhotoProps) {
+export default function Photo({src, alt, tailwindClasses, props}: PhotoProps & MotionProps) {
 	// Move margin and padding to motion div to avoid description text issues
 	const [ imgClasses, setImgClasses ] = useState("")
 	const [ divClasses, setDivClasses ] = useState("")
 
-	const [ imgProps, setImgProps ] = useState<object>({})
-	const [ divProps, setDivProps ] = useState<object>({})
+	const [ imgProps, setImgProps ] = useState<MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement>>({})
+	const [ divProps, setDivProps ] = useState<MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>>({})
 
 	useEffect(() => {
 		if (!tailwindClasses) return
 		if (typeof tailwindClasses === "object") {
-			setImgClasses(tailwindClasses.imgClasses)
-			setDivClasses(tailwindClasses.divClasses)
+			let imgClasses = ""
+			let divClasses = ""
+			if (tailwindClasses.auto) {
+				const { imgClasses: autoImgClasses, divClasses: autoDivClasses } = filterTailwindClasses(tailwindClasses.auto)
+				imgClasses = autoImgClasses
+				divClasses = autoDivClasses
+			}
+
+			if (tailwindClasses.imgClasses) {
+				// Filter existing imgClasses to remove duplicates
+				// imgClasses takes precedence over auto
+				let imgIndicators = tailwindClasses.imgClasses.split(" ").flatMap(c => c.split("-")[0])
+				if (imgIndicators.length === 0) return;
+				const additionalImgClasses = imgClasses
+					.split(" ")
+					.filter(c => !imgIndicators.includes(c.split("-")[0]))
+					.join(" ")
+				imgClasses = `${tailwindClasses.imgClasses} ${additionalImgClasses}`.trim()
+			}
+
+			if (tailwindClasses.divClasses) {
+				// Filter existing divClasses to remove duplicates
+				// divClasses takes precedence over auto
+				let divIndicators = tailwindClasses.divClasses.split(" ").flatMap(c => c.split("-")[0])
+				if (divIndicators.length === 0) return;
+				const additionalDivClasses = divClasses
+					.split(" ")
+					.filter(c => !divIndicators.includes(c.split("-")[0]))
+					.join(" ")
+				divClasses = `${tailwindClasses.divClasses} ${additionalDivClasses}`.trim()
+			}
+
+			setImgClasses(imgClasses)
+			setDivClasses(divClasses)
 			return
 		}
 		const { imgClasses, divClasses } = filterTailwindClasses(tailwindClasses)
@@ -115,7 +152,38 @@ export default function Photo({src, alt, tailwindClasses, props}: PhotoProps) {
 	}, [tailwindClasses])
 
 	useEffect(() => {
-		const { imgProps, divProps } = filterProps(props)
+		if (!props) return
+
+		if (typeof props === "object" && ("auto" in props || "imgProps" in props || "divProps" in props)) {
+			let newImgProps: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement> = {}
+			let newDivProps: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> = {}
+
+			if ("auto" in props && props.auto) {
+				const { imgProps: autoImgProps, divProps: autoDivProps } = filterProps(props.auto)
+				newImgProps = { ...autoImgProps }
+				newDivProps = { ...autoDivProps }
+			}
+
+			if ("imgProps" in props && props.imgProps) {
+				// Filter out any overlapping keys, imgProps takes precedence
+				Object.entries(props.imgProps).forEach(([key, value]) => {
+					newImgProps[key as keyof typeof newImgProps] = value
+				})
+			}
+
+			if ("divProps" in props && props.divProps) {
+				// Filter out any overlapping keys, divProps takes precedence
+				Object.entries(props.divProps).forEach(([key, value]) => {
+					newDivProps[key as keyof typeof newDivProps] = value
+				})
+			}
+
+			setImgProps(newImgProps)
+			setDivProps(newDivProps)
+			return
+		}
+
+		const { imgProps, divProps } = filterProps(props as MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any>)
 		setImgProps(imgProps)
 		setDivProps(divProps)
 	}, [props])
@@ -124,21 +192,16 @@ export default function Photo({src, alt, tailwindClasses, props}: PhotoProps) {
 		<motion.div
 			layout
 			className={divClasses}
-			draggable={props?.draggable}
+			draggable={divProps?.draggable}
 			{...divProps}
 		>
 			{/* Image with motion effects */}
 			<motion.img
 				src={src}
 				alt={alt ?? ""}
-				className={`${imgClasses} h-100`}
+				className={imgClasses}
 				{...imgProps}
 			/>
-
-			{/*  */}
-			<motion.div>
-			
-			</motion.div>
 		</motion.div>
 	)
 }

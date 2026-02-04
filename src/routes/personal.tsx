@@ -46,8 +46,8 @@ function RouteComponent() {
 						src={photoPath}
 						alt="Picture of me with my girlfriend's cat Shanti"
 						tailwindClasses={{ 
-							imgClasses: "md:rounded-xl not-md:rounded-full outline-2 outline-offset-4 md:max-w-100 md:max-h-100",
-							divClasses: "mr-10 md:my-8 not-md:my-4 shadow-lg max-size-xs md:max-size-max"
+							imgClasses: "md:rounded-xl not-md:rounded-full outline-2 outline-offset-4 md:w-[64rem] md:h-auto",
+							divClasses: "md:mr-10 md:my-8 not-md:my-4 shadow-lg not-md:max-w-xs"
 						}}
 						props={{
 							animate: {
@@ -57,7 +57,7 @@ function RouteComponent() {
 									duration: 10,
 									repeat: Infinity
 								}
-							},
+							}
 						}}
 					/>					
 					<div>
