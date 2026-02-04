@@ -47,7 +47,7 @@ function Cards({ photos, altTexts, selected, setSelected }: {
 	setSelected: Dispatch<SetStateAction<number>>,
 }) {
 	const transitionOptions = {
-		duration: 10,
+		duration: 0.3,
 		ease: "easeInOut" as Easing
 	}
 
