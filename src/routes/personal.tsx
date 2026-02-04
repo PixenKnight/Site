@@ -52,12 +52,12 @@ function RouteComponent() {
 						props={{
 							animate: {
 								outlineColor: ["#00b8db", "#ad46ff", "#00b8db"],
-								boxShadow: ["0 0 20px #00b8db", "0 0 20px #ad46ff", "0 0 20px #00b8db"]
+								boxShadow: ["0 0 20px #00b8db", "0 0 20px #ad46ff", "0 0 20px #00b8db"],
+								transition: {
+									duration: 10,
+									repeat: Infinity
+								}
 							},
-							transition: {
-								duration: 10,
-								repeat: Infinity
-							}
 						}}
 					/>					
 					<div>
