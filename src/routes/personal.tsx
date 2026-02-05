@@ -8,7 +8,6 @@ import {
 	SquareArrowOutUpRight
 } from 'lucide-react'
 
-import PhotoCarousel from '../components/PhotoCarousel'
 import ScrollCarousel from '../components/ScrollCarousel'
 
 export const Route = createFileRoute('/personal')({

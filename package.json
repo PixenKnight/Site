@@ -13,6 +13,7 @@
     "check": "biome check"
   },
   "dependencies": {
+    "@icons-pack/react-simple-icons": "^13.8.0",
     "@react-hook/window-size": "^3.1.1",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-devtools": "^0.7.0",
