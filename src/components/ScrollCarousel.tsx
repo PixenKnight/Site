@@ -8,10 +8,10 @@ import {
 
 import Photo from "./Photo";
 
-function Dots({ count, selected, liRefs }: {
+function Dots({ count, selected, setSelected }: {
 	count: number,
 	selected: number,
-	liRefs: React.RefObject<(HTMLLIElement | null)[]>
+	setSelected: React.Dispatch<React.SetStateAction<number>>,
 }) {
 	return (
 		<div className="flex flex-row gap-1 h-fit">
@@ -33,7 +33,7 @@ function Dots({ count, selected, liRefs }: {
 						}}
 						transition={{ delay: 0.2, duration: 0.2 }}
 						onClick={() => {
-							liRefs.current[i]?.scrollIntoView({ behavior: "smooth", inline: "center" })
+							setSelected(i);
 						}}
 					/>
 				)
@@ -169,7 +169,7 @@ export default function ScrollCarousel({ photos, altTexts }: { photos: string[],
 	}, [])
 
 	return (
-		<div className="relative w-full max-w-[50%] flex flex-col">
+		<div className="relative w-full md:max-w-[50%] not-md:max-w-[90%] flex flex-col">
 			<motion.ul style={{ maskImage }} ref={ulRef} className="flex list-none overflow-x-auto flex-shrink-0 flex-grow-0 pb-6 mb-1 pt-6 snap-x snap-mandatory max-h-128 snap-normal">
 				{photos.map((photo, i) => {
 					return (
@@ -206,7 +206,7 @@ export default function ScrollCarousel({ photos, altTexts }: { photos: string[],
 						<ChevronRight size={24} className="pl-[0.1rem]"/>
 					</motion.button>
 				</div>
-				<Dots count={photos.length} selected={selected} liRefs={liRefs}/>
+				<Dots count={photos.length} selected={selected} setSelected={setSelected}/>
 			</div>
 		</div>
 	)
