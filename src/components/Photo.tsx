@@ -230,34 +230,23 @@ export default function Photo({src, alt, hoverAltEnabled, tailwindClasses, props
 			/>
 
 			{/* Hover alt text */}
-			
 			<div className={`absolute bottom-0 left-0 right-0 top-0 overflow-hidden pointer-events-none ${unalteredRounding}`}>
-				{/* Variant 1: linear fade from black */}
-				{/* <motion.div 
-					className="absolute bottom-0 left-0 w-[105%] bg-gradient-to-t from-black/80 from-70% to-transparent pointer-events-auto"
-					variants={hoverAltTextVariants}
-					transition={{ duration: 0.3, ease: "easeInOut" }}
-				>
-					<p className="text-white text-sm m-2 select-text">{alt}</p>
-				</motion.div> */}
-
-				{/* Variant 2: solid white background */}
-				{/* <motion.div 
-					className="absolute bottom-0 left-0 w-[105%] bg-white pointer-events-auto"
-					variants={hoverAltTextVariants}
-					transition={{ duration: 0.3, ease: "easeInOut" }}
-				>
-					<p className="text-black text-sm m-2 select-text">{alt}</p>
-				</motion.div> */}
-
-				{/* Variant 3: solid slate background */}
 				<motion.div 
-					className="absolute bottom-0 left-0 w-[105%] bg-slate-800 pointer-events-auto"
+					className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 from-70% to-transparent pointer-events-auto"
 					variants={hoverAltTextVariants}
 					transition={{ duration: 0.3, ease: "easeInOut" }}
 				>
-					<p className="text-white text-sm m-2 select-text">{alt}</p>
+					<p className="text-white text-lg m-2 text-center select-text">{alt}</p>
 				</motion.div>
+
+				{/* Alt: solid slate background */}
+				{/* <motion.div 
+					className="absolute bottom-0 left-0 w-full bg-slate-800 pointer-events-auto"
+					variants={hoverAltTextVariants}
+					transition={{ duration: 0.3, ease: "easeInOut" }}
+				>
+					<p className="text-white text-sm text-center m-2 select-text">{alt}</p>
+				</motion.div> */}
 			</div>
 		</motion.div>
 	)
