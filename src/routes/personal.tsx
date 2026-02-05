@@ -51,7 +51,7 @@ function RouteComponent() {
 						hoverAltEnabled
 						tailwindClasses={{ 
 							imgClasses: "md:rounded-xl not-md:rounded-lg outline-2 outline-offset-4 md:w-[64rem] md:h-auto",
-							divClasses: "md:mr-10 md:my-8 not-md:my-4 shadow-lg not-md:max-w-xs"
+							divClasses: "md:mr-10 md:my-8 not-md:my-4 not-md:max-w-xs"
 						}}
 						props={{
 							animate: {
