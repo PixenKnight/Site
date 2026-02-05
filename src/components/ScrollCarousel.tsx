@@ -172,6 +172,8 @@ export default function ScrollCarousel({ photos, altTexts }: { photos: string[],
 			const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? Math.sign(e.deltaY) : Math.sign(e.deltaX)
 			setSelected(prev => Math.max(0, Math.min(prev + delta, photos.length - 1)))
 		})
+
+		ul.scrollTo({ left: 0, behavior: "smooth" })
 	}, [])
 
 	useMotionValueEvent(scrollXProgress, "change", () => {
