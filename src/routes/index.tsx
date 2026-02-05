@@ -120,7 +120,32 @@ function App() {
 					</div>
 				</div>
 				<div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-4">
-					<motion.span className="text-gray-200 flex flex-col items-center" animate={{ y: 0, opacity: 1 }} initial={{ y: -10, opacity: 0 }} transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}>
+					<motion.span 
+						className="text-gray-200 flex flex-col items-center hover:cursor-pointer" 
+						animate={{
+							y: 0,
+							opacity: 1
+						}}
+						initial={{
+							y: -10,
+							opacity: 0
+						}} 
+						transition={{
+							duration: 0.5,
+							ease: 'easeOut',
+							delay: 0.2
+						}}
+						whileHover={{
+							y: -5,
+							transition: {
+								duration: 0.3,
+								ease: 'easeInOut'
+							}
+						}}
+						onClick={() => {
+							window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
+						}}
+					>
 						<p className="mb-[-0.5rem]">Scroll Down</p>
 						<p>&#x2304;</p>
 					</motion.span>
