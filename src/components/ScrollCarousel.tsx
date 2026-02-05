@@ -111,7 +111,7 @@ function CarouselLi({ photo, altText, refList, viewList, index, selected }: {
 				alt={altText}
 				hoverAltEnabled
 				tailwindClasses={{
-					imgClasses: "rounded-lg h-100 w-fit outline-2 outline-offset-4",
+					imgClasses: "rounded-lg h-100 w-auto outline-2 outline-offset-4 select-none",
 					divClasses: "mx-4"
 				}}
 				props={{
@@ -121,7 +121,8 @@ function CarouselLi({ photo, altText, refList, viewList, index, selected }: {
 						},
 						initial: {
 							outlineColor: "transparent"
-						}
+						},
+						draggable: false,
 					}
 				}}
 			/>
