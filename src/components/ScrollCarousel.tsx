@@ -8,10 +8,11 @@ import {
 
 import Photo from "./Photo";
 
-function Dots({ count, selected, setSelected }: {
+function Dots({ count, selected, setSelected, setUserScrolling }: {
 	count: number,
 	selected: number,
 	setSelected: React.Dispatch<React.SetStateAction<number>>,
+	setUserScrolling: () => void
 }) {
 	return (
 		<div className="flex flex-row gap-1 h-fit">
@@ -33,6 +34,7 @@ function Dots({ count, selected, setSelected }: {
 						}}
 						transition={{ delay: 0.2, duration: 0.2 }}
 						onClick={() => {
+							setUserScrolling();
 							setSelected(i);
 						}}
 					/>
@@ -140,9 +142,20 @@ export default function ScrollCarousel({ photos, altTexts }: { photos: string[],
 	const isUserScrolling = useRef(false);
 	const scrollTimeout = useRef<number | null>(null);
 
+	const setUserScrolling = () => {
+		isUserScrolling.current = true
+		if (scrollTimeout.current) {
+			window.clearTimeout(scrollTimeout.current)
+		}
+		scrollTimeout.current = window.setTimeout(() => {
+			isUserScrolling.current = false
+			scrollTimeout.current = null
+		}, 100)
+	}
+
 	useEffect(() => {
 		const curr = liRefs.current[selected]
-		if (!curr) return;
+		if (!curr || !isUserScrolling.current) return;
 		curr?.scrollIntoView({ behavior: "smooth", inline: "center" })
 	}, [selected])
 
@@ -153,20 +166,27 @@ export default function ScrollCarousel({ photos, altTexts }: { photos: string[],
 		ul.addEventListener("wheel", (e) => {
 			e.preventDefault()
 
-			isUserScrolling.current = true
+			setUserScrolling()
 
 			const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? Math.sign(e.deltaY) : Math.sign(e.deltaX)
 			setSelected(prev => Math.max(0, Math.min(prev + delta, photos.length - 1)))
+		})
+	}, [])
 
-			if (scrollTimeout.current) {
-				window.clearTimeout(scrollTimeout.current)
+	useMotionValueEvent(scrollXProgress, "change", () => {
+		if (!isUserScrolling.current) {
+			const inViewIndex = liViewRefs.current.findIndex(inView => inView === true)
+			if (inViewIndex !== -1 && inViewIndex !== selected) {
+				setSelected(inViewIndex)
 			}
+		} else if (scrollTimeout.current) {
+			window.clearTimeout(scrollTimeout.current)
 			scrollTimeout.current = window.setTimeout(() => {
 				isUserScrolling.current = false
 				scrollTimeout.current = null
-			}, 200)
-		})
-	}, [])
+			}, 100)
+		}
+	})
 
 	return (
 		<div className="relative w-full md:max-w-[50%] not-md:max-w-[90%] flex flex-col">
@@ -192,7 +212,13 @@ export default function ScrollCarousel({ photos, altTexts }: { photos: string[],
 						whileHover={{ backgroundColor: "rgba(229, 231, 235, 1)", color: "rgb(29, 41, 61)" }}
 						initial={{ backgroundColor: "rgba(229, 231, 235, 0)", color: "rgb(229, 231, 235)" }}
 						transition={{ duration: 0.2, ease: "easeInOut" }}
-						onClick={() => setSelected(prev => Math.max(prev - 1, 0))}
+						onClick={() => {
+							setSelected(prev => {
+								const newSelected = Math.max(prev - 1, 0);
+								setUserScrolling();
+								return newSelected;
+							});
+						}}
 					>
 						<ChevronLeft size={24} className="pr-[0.1rem]"/>
 					</motion.button>
@@ -201,12 +227,18 @@ export default function ScrollCarousel({ photos, altTexts }: { photos: string[],
 						whileHover={{ backgroundColor: "rgba(229, 231, 235, 1)", color: "rgb(29, 41, 61)" }}
 						initial={{ backgroundColor: "rgba(229, 231, 235, 0)", color: "rgb(229, 231, 235)" }}
 						transition={{ duration: 0.2, ease: "easeInOut" }}
-						onClick={() => setSelected(prev => Math.min(prev + 1, photos.length - 1))}
+						onClick={() => {
+							setSelected(prev => {
+								const newSelected = Math.min(prev + 1, photos.length - 1);
+								setUserScrolling();
+								return newSelected;
+							});
+						}}
 					>
 						<ChevronRight size={24} className="pl-[0.1rem]"/>
 					</motion.button>
 				</div>
-				<Dots count={photos.length} selected={selected} setSelected={setSelected}/>
+				<Dots count={photos.length} selected={selected} setSelected={setSelected} setUserScrolling={setUserScrolling}/>
 			</div>
 		</div>
 	)
