@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 
 import PhotoCarousel from '../components/PhotoCarousel'
+import ScrollCarousel from '../components/ScrollCarousel'
 
 export const Route = createFileRoute('/personal')({
 	component: RouteComponent,
@@ -80,9 +81,9 @@ function RouteComponent() {
 					</div>
 				</div>
 			</section>
-			<section className="py-10 px-6 mx-auto bg-slate-900 overflow-hidden">
+			<section className="py-6 px-6 mx-auto bg-slate-900 overflow-hidden">
 				<div className="flex align-center justify-center">
-					<PhotoCarousel
+					<ScrollCarousel
 						photos={photos}
 						altTexts={altTexts}
 					/>
