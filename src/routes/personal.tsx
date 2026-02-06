@@ -38,10 +38,18 @@ const catPhotos = {
 
 const mePhotos = {
 	photos: [
-
+		"/me-photos/Me-Mom-Kyra-Loch.JPEG",
+		"/me-photos/Me-Kyra-Grad.JPEG",
+		"/me-photos/Me-Mom-Kyra-Muir.JPEG",
+		"/me-photos/Me-Kyra-Ski.JPEG",
+		"/me-photos/Me-Mom-Kyra-Paris.JPEG"
 	],
 	altTexts: [
-
+		"My mom, my sister, and I at Loch Ness in Scotland.",
+		"My sister and I at my graduation.",
+		"My mom, my sister, and I at Muir Woods in California.",
+		"My sister and I skiing in Meribel.",
+		"My mom, my sister, and I in Paris."
 	]
 }
 
@@ -90,9 +98,9 @@ function RouteComponent() {
 
 	useEffect(() => {
 		if (windowWidth < 768) {
-			setPhotoPath("/Me-With-Shanti-Square.JPEG")
+			setPhotoPath("/me-photos/Me-With-Shanti-Square.JPEG")
 		} else {
-			setPhotoPath("/Me-With-Shanti.JPEG")
+			setPhotoPath("/me-photos/Me-With-Shanti.JPEG")
 		}
 	}, [windowWidth])
 
