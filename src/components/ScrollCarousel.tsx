@@ -203,6 +203,9 @@ export default function ScrollCarousel(props: { photos: string[], altTexts: stri
 
 		// Event listener to specifically handle mouse wheel
 		ul.addEventListener("wheel", (e) => {
+			// Since the carousel scrolls horizontally, only allow shift scrolling
+			if (!e.shiftKey) return;
+
 			// Stop default scroll behavior
 			e.preventDefault()
 
