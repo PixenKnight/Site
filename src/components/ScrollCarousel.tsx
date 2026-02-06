@@ -44,13 +44,14 @@ function Dots({ count, selected, setSelected, setUserScrolling }: {
 	)
 }
 
-const left = `0%`
-const right = `100%`
-const leftInset = `10%`
-const rightInset = `90%`
-const transparent = `#0000`
-const opaque = `#000`
 function scrollOverflowMask(scrollXProgress: MotionValue<number>, selectedOverride?: number, selectedMax?: number) {
+	const left = `0%`
+	const right = `100%`
+	const leftInset = `10%`
+	const rightInset = `90%`
+	const transparent = `#0000`
+	const opaque = `#000`
+
     const maskImage = useMotionValue(
         `linear-gradient(90deg, ${opaque}, ${opaque} ${left}, ${opaque} ${rightInset}, ${transparent})`
     )
@@ -219,7 +220,8 @@ export default function ScrollCarousel(props: { photos: string[], altTexts: stri
 		}, false)
 
 		// Prevent odd behavior on load where the carousel isn't at the first element
-		ul.scrollTo({ left: 0, behavior: "smooth" })
+		setUserDiscreteScrolling()
+		setSelected(0)
 
 		return () => {
 			// Prevent duplicate event listeners when reloading
