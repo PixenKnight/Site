@@ -121,7 +121,7 @@ function RouteComponent() {
 		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900 pb-6">
 			<section className="max-w-4xl mx-auto h-min p-8 text-gray-200 ">
 				<div className="relative text-center">
-					<h1 className="text-5xl md:text-7xl font-black text-white [letter-spacing:-0.01em] transform duration-300 ease-in-out motion-safe:hover:-translate-y-1 mb-2">
+					<h1 className="text-5xl md:text-7xl font-black text-white [letter-spacing:-0.01em] transform duration-300 ease-in-out motion-safe:hover:-translate-y-1 mb-8">
 						<span className="text-gray-200">Contact</span>{' '}
 						<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Me</span>
 					</h1>

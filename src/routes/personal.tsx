@@ -90,19 +90,10 @@ function RouteComponent() {
 								animate: {
 									outlineColor: ["#00b8db", "#ad46ff", "#00b8db"],
 									boxShadow: ["0 0 20px #00b8db", "0 0 20px #ad46ff", "0 0 20px #00b8db"],
-									visibility: "visible",
 									transition: {
-										default: {
-											duration: 10,
-											repeat: Infinity
-										},
-										visibility: {
-											duration: 10,
-										}
+										duration: 10,
+										repeat: Infinity
 									}
-								},
-								initial: {
-									visibility: "hidden"
 								}
 							}
 						}}
