@@ -139,9 +139,6 @@ function RouteComponent() {
 							<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Paul Maresquier</span>
 						</h1>
 						<p className="text-gray-300 mt-4 text-lg">
-							My pronouns are any/all (use whatever you prefer!)
-						</p>
-						<p className="text-gray-300 mt-4 text-lg">
 							While I am originally from Mexico, I've been living in San Francisco (USA) for the last {new Date().getFullYear() - 2021} years. I currently live with my loving girlfriend and our two spiteful, beautiful cats, Wolf and Dorito (pictured below).
 						</p>
 						<p className="text-gray-300 mt-4 text-lg">
