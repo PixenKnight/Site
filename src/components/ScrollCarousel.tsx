@@ -117,7 +117,7 @@ function CarouselLi({ photo, altText, refList, viewList, index, selected }: {
 				props={{
 					imgProps: {
 						animate: {
-							outlineColor: selected === index ? "rgba(0, 184, 219, 1)" : "rgba(0, 184, 219, 0)",
+							outlineColor: selected === index ? "rgba(0, 184, 219, 1)" : "rgba(0, 184, 219, 0)"
 						},
 						initial: {
 							outlineColor: "transparent"

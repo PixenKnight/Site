@@ -2,6 +2,8 @@ import { useWindowWidth } from '@react-hook/window-size'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
+import { motion } from 'motion/react'
+
 import Photo from '../components/Photo'
 
 import {
@@ -28,6 +30,25 @@ const altTexts = [
 	"Wolf and dorito cleaning each other."
 ]
 
+const pageVariants = {
+	initial: {},
+	visible: {}
+}
+
+const sectionVariants = {
+	initial: { opacity: 0 },
+	visible: (sectionIndex: number) => {
+		const delay = 0.5 * sectionIndex + 0.1
+		return {
+			opacity: 1,
+			transition: {
+				duration: 0.5,
+				delay
+			}
+		}
+	}
+}
+
 function RouteComponent() {
 	const [ photoPath, setPhotoPath ] = useState("/Me-With-Shanti.JPEG")
 	const windowWidth = useWindowWidth()
@@ -41,24 +62,47 @@ function RouteComponent() {
 	}, [windowWidth])
 
 	return (
-		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900">
-			<section className="h-fit top-0 relative py-10 px-6 items-center">
+		<motion.div 
+			className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900"
+			variants={pageVariants}
+			initial="initial"
+			animate="visible"
+			transition={{ duration: 1, delay: 0.2 }}
+		>
+			<motion.section
+				className="h-fit top-0 relative py-10 px-6 items-center"
+				variants={sectionVariants}
+				initial="initial"
+				animate="visible"
+				custom={0}
+			>
 				<div className="flex justify-center items-center gap-4 max-w-5xl mx-auto md:flex-row not-md:flex-col">
 					<Photo
 						src={photoPath}
 						alt="Picture of me with my girlfriend's cat Shanti"
 						hoverAltEnabled
 						tailwindClasses={{ 
-							imgClasses: "md:rounded-xl not-md:rounded-lg outline-2 outline-offset-4 md:w-[64rem] md:h-auto",
-							divClasses: "md:mr-10 md:my-8 not-md:my-4 not-md:max-w-xs"
+							imgClasses: "md:w-6xl not-md:max-w-xs",
+							divClasses: "md:mr-10 md:my-8 not-md:my-4 outline-2 outline-offset-4 md:rounded-xl not-md:rounded-lg overflow-hidden"
 						}}
 						props={{
-							animate: {
-								outlineColor: ["#00b8db", "#ad46ff", "#00b8db"],
-								boxShadow: ["0 0 20px #00b8db", "0 0 20px #ad46ff", "0 0 20px #00b8db"],
-								transition: {
-									duration: 10,
-									repeat: Infinity
+							divProps: {
+								animate: {
+									outlineColor: ["#00b8db", "#ad46ff", "#00b8db"],
+									boxShadow: ["0 0 20px #00b8db", "0 0 20px #ad46ff", "0 0 20px #00b8db"],
+									visibility: "visible",
+									transition: {
+										default: {
+											duration: 10,
+											repeat: Infinity
+										},
+										visibility: {
+											duration: 10,
+										}
+									}
+								},
+								initial: {
+									visibility: "hidden"
 								}
 							}
 						}}
@@ -79,15 +123,21 @@ function RouteComponent() {
 						</p>
 					</div>
 				</div>
-			</section>
-			<section className="py-6 px-6 mx-auto bg-slate-900 overflow-hidden">
+			</motion.section>
+			<motion.section
+				className="py-6 px-6 mx-auto bg-slate-900 overflow-hidden"
+				variants={sectionVariants}
+				initial="initial"
+				animate="visible"
+				custom={1}
+			>
 				<div className="flex align-center justify-center">
 					<ScrollCarousel
 						photos={photos}
 						altTexts={altTexts}
 					/>
 				</div>
-			</section>
-		</div>
+			</motion.section>
+		</motion.div>
 	)
 }
