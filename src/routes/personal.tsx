@@ -16,19 +16,24 @@ export const Route = createFileRoute('/personal')({
 	component: RouteComponent,
 })
 
-const photos = [
-	"/cat-photos/Boys-Eep.JPEG",
-	"/cat-photos/Dorito-Desk.JPEG",
-	"/cat-photos/Wolf-Squish.JPEG",
-	"/cat-photos/Boys-Clean.JPEG",
-]
-
-const altTexts = [
-	"Wolf and Dorito sleeping by my desk.",
-	"Dorito sleeping on the cat bed I have on my desk.",
-	"Wolf being squished by my girlfriend with a ruler.",
-	"Wolf and dorito cleaning each other."
-]
+const catPhotos = {
+	photos: [
+		"/cat-photos/Boys-Eep.JPEG",
+		"/cat-photos/Dorito-Desk.JPEG",
+		"/cat-photos/Wolf-Squish.JPEG",
+		"/cat-photos/Boys-Clean.JPEG",
+		"/cat-photos/Dorito-Floor.JPEG",
+		"/cat-photos/Wolf-Computer.JPEG"
+	],
+	altTexts: [
+		"Wolf and Dorito sleeping by my desk.",
+		"Dorito sleeping on the cat bed I have on my desk.",
+		"Wolf being squished by my girlfriend with a ruler.",
+		"Wolf and dorito cleaning each other.",
+		"Dorito looking up at me from the floor.",
+		"Wolf sitting on my computer, getting warm."
+	]
+}
 
 const pageVariants = {
 	initial: {},
@@ -124,8 +129,8 @@ function RouteComponent() {
 			>
 				<div className="flex align-center justify-center">
 					<ScrollCarousel
-						photos={photos}
-						altTexts={altTexts}
+						photos={catPhotos.photos}
+						altTexts={catPhotos.altTexts}
 					/>
 				</div>
 			</motion.section>
