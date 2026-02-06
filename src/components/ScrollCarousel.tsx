@@ -50,7 +50,7 @@ const leftInset = `10%`
 const rightInset = `90%`
 const transparent = `#0000`
 const opaque = `#000`
-function scrollOverflowMask(scrollXProgress: MotionValue<number>) {
+function scrollOverflowMask(scrollXProgress: MotionValue<number>, selectedOverride?: number, selectedMax?: number) {
     const maskImage = useMotionValue(
         `linear-gradient(90deg, ${opaque}, ${opaque} ${left}, ${opaque} ${rightInset}, ${transparent})`
     )
@@ -58,12 +58,12 @@ function scrollOverflowMask(scrollXProgress: MotionValue<number>) {
     useMotionValueEvent(scrollXProgress, "change", (value) => {
 		const prev = scrollXProgress.getPrevious()
 
-        if (value === 0) {
+        if (value === 0 || (selectedOverride !== undefined && selectedOverride === 0)) {
             animate(
                 maskImage,
                 `linear-gradient(90deg, ${opaque}, ${opaque} ${left}, ${opaque} ${rightInset}, ${transparent})`
             )
-        } else if (value === 1) {
+        } else if (value === 1 || (selectedOverride !== undefined && selectedOverride === selectedMax)) {
             animate(
                 maskImage,
                 `linear-gradient(90deg, ${transparent}, ${opaque} ${leftInset}, ${opaque} ${right}, ${opaque})`
@@ -155,11 +155,12 @@ function CarouselLi(props: {
  * @returns 
  */
 export default function ScrollCarousel(props: { photos: string[], altTexts: string[] }) {
+	const [ selected, setSelected ] = useState(0)
+
 	const ulRef = useRef<HTMLUListElement>(null)
 	const { scrollXProgress } = useScroll({ container: ulRef })
-	const maskImage = scrollOverflowMask(scrollXProgress)
+	const maskImage = scrollOverflowMask(scrollXProgress, selected, props.photos.length - 1)
 
-	const [ selected, setSelected ] = useState(0)
 	const liRefs = useRef<(HTMLLIElement | null)[]>([]);
 	const liViewRefs = useRef<(boolean | null)[]>([]);
 
