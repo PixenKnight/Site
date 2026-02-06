@@ -83,7 +83,7 @@ const carouselVariants = {
 }
 
 function RouteComponent() {
-	const [ photoPath, setPhotoPath ] = useState("/Me-With-Shanti.JPEG")
+	const [ photoPath, setPhotoPath ] = useState("/me-photos/Me-With-Shanti.JPEG")
 	const windowWidth = useWindowWidth()
 
 	const [ carouselToggle, setCarouselToggle ] = useState(false)
