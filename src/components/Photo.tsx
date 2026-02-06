@@ -224,7 +224,8 @@ export default function Photo({src, alt, hoverAltEnabled, tailwindClasses, props
 			{/* Image with motion effects */}
 			<motion.img
 				src={src}
-				alt={alt ?? ""}
+				alt={alt}
+				title={alt}
 				className={imgClasses}
 				{...imgProps}
 			/>
