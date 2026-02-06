@@ -169,7 +169,7 @@ export default function ScrollCarousel({ photos, altTexts }: { photos: string[],
 
 			setUserScrolling()
 
-			const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? Math.sign(e.deltaY) : Math.sign(e.deltaX)
+			const delta = Math.sign(e.deltaY)
 			setSelected(prev => Math.max(0, Math.min(prev + delta, photos.length - 1)))
 		})
 
