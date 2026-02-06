@@ -1,21 +1,16 @@
-import { useWindowWidth } from '@react-hook/window-size'
-import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useWindowWidth } from "@react-hook/window-size";
+import { createFileRoute } from "@tanstack/react-router";
+import { SquareArrowOutUpRight } from "lucide-react";
 
-import { motion } from 'motion/react'
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import Photo from "../components/Photo";
+import ScrollCarousel from "../components/ScrollCarousel";
+import Toggle from "../components/Toggle";
 
-import Photo from '../components/Photo'
-import Toggle from '../components/Toggle'
-
-import {
-	SquareArrowOutUpRight
-} from 'lucide-react'
-
-import ScrollCarousel from '../components/ScrollCarousel'
-
-export const Route = createFileRoute('/personal')({
+export const Route = createFileRoute("/personal")({
 	component: RouteComponent,
-})
+});
 
 const catPhotos = {
 	photos: [
@@ -24,7 +19,7 @@ const catPhotos = {
 		"/cat-photos/Wolf-Squish.JPEG",
 		"/cat-photos/Boys-Clean.JPEG",
 		"/cat-photos/Dorito-Floor.JPEG",
-		"/cat-photos/Wolf-Computer.JPEG"
+		"/cat-photos/Wolf-Computer.JPEG",
 	],
 	altTexts: [
 		"Wolf and Dorito sleeping by my desk.",
@@ -32,9 +27,9 @@ const catPhotos = {
 		"Wolf being squished by my girlfriend with a ruler.",
 		"Wolf and dorito cleaning each other.",
 		"Dorito looking up at me from the floor.",
-		"Wolf sitting on my computer, getting warm."
-	]
-}
+		"Wolf sitting on my computer, getting warm.",
+	],
+};
 
 const mePhotos = {
 	photos: [
@@ -42,35 +37,35 @@ const mePhotos = {
 		"/me-photos/Me-Kyra-Grad.JPEG",
 		"/me-photos/Me-Mom-Kyra-Muir.JPEG",
 		"/me-photos/Me-Kyra-Ski.JPEG",
-		"/me-photos/Me-Mom-Kyra-Paris.JPEG"
+		"/me-photos/Me-Mom-Kyra-Paris.JPEG",
 	],
 	altTexts: [
 		"My mom, my sister, and I at Loch Ness in Scotland.",
 		"My sister and I at my graduation.",
 		"My mom, my sister, and I at Muir Woods in California.",
 		"My sister and I skiing in Meribel.",
-		"My mom, my sister, and I in Paris."
-	]
-}
+		"My mom, my sister, and I in Paris.",
+	],
+};
 
 const pageVariants = {
 	initial: {},
-	visible: {}
-}
+	visible: {},
+};
 
 const sectionVariants = {
 	initial: { opacity: 0 },
 	visible: (sectionIndex: number) => {
-		const delay = 0.5 * sectionIndex + 0.1
+		const delay = 0.5 * sectionIndex + 0.1;
 		return {
 			opacity: 1,
 			transition: {
 				duration: 0.5,
-				delay
-			}
-		}
-	}
-}
+				delay,
+			},
+		};
+	},
+};
 
 const carouselVariants = {
 	visible: {
@@ -78,34 +73,34 @@ const carouselVariants = {
 		display: "block",
 		transition: {
 			duration: 0.5,
-			delay: 0.5
-		}
+			delay: 0.5,
+		},
 	},
 	invisible: {
 		opacity: 0,
 		display: "none",
 		transition: {
-			duration: 0.5
-		}
-	}
-}
+			duration: 0.5,
+		},
+	},
+};
 
 function RouteComponent() {
-	const [ photoPath, setPhotoPath ] = useState("/me-photos/Me-With-Shanti.JPEG")
-	const windowWidth = useWindowWidth()
+	const [photoPath, setPhotoPath] = useState("/me-photos/Me-With-Shanti.JPEG");
+	const windowWidth = useWindowWidth();
 
-	const [ carouselToggle, setCarouselToggle ] = useState(false)
+	const [carouselToggle, setCarouselToggle] = useState(false);
 
 	useEffect(() => {
 		if (windowWidth < 768) {
-			setPhotoPath("/me-photos/Me-With-Shanti-Square.JPEG")
+			setPhotoPath("/me-photos/Me-With-Shanti-Square.JPEG");
 		} else {
-			setPhotoPath("/me-photos/Me-With-Shanti.JPEG")
+			setPhotoPath("/me-photos/Me-With-Shanti.JPEG");
 		}
-	}, [windowWidth])
+	}, [windowWidth]);
 
 	return (
-		<motion.div 
+		<motion.div
 			className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900"
 			variants={pageVariants}
 			initial="initial"
@@ -124,33 +119,54 @@ function RouteComponent() {
 						src={photoPath}
 						alt="Picture of me with my girlfriend's cat Shanti"
 						hoverAltEnabled
-						tailwindClasses={{ 
+						tailwindClasses={{
 							imgClasses: "md:w-6xl not-md:max-w-xs",
-							divClasses: "md:mr-10 md:my-8 not-md:my-4 outline-2 outline-offset-4 md:rounded-2xl not-md:rounded-4xl overflow-hidden"
+							divClasses:
+								"md:mr-10 md:my-8 not-md:my-4 outline-2 outline-offset-4 md:rounded-2xl not-md:rounded-4xl overflow-hidden",
 						}}
 						props={{
 							divProps: {
 								animate: {
 									outlineColor: ["#00b8db", "#ad46ff", "#00b8db"],
-									boxShadow: ["0 0 20px #00b8db", "0 0 20px #ad46ff", "0 0 20px #00b8db"],
+									boxShadow: [
+										"0 0 20px #00b8db",
+										"0 0 20px #ad46ff",
+										"0 0 20px #00b8db",
+									],
 									transition: {
 										duration: 10,
-										repeat: Infinity
-									}
-								}
-							}
+										repeat: Infinity,
+									},
+								},
+							},
 						}}
-					/>					
+					/>
 					<div>
 						<h1 className="text-5xl md:text-6xl not-md:text-center font-black text-white [letter-spacing:-0.02em]">
-							<span className="text-gray-300">Hello! My name is </span>{' '}
-							<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Paul Maresquier</span>
+							<span className="text-gray-300">Hello! My name is </span>{" "}
+							<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+								Paul Maresquier
+							</span>
 						</h1>
 						<p className="text-gray-300 mt-4 text-lg">
-							While I am originally from Mexico, I've been living in San Francisco (USA) for the last {new Date().getFullYear() - 2021} years. I currently live with my loving girlfriend and our two spiteful, beautiful cats, Wolf and Dorito (pictured below).
+							While I am originally from Mexico, I've been living in San
+							Francisco (USA) for the last {new Date().getFullYear() - 2021}{" "}
+							years. I currently live with my loving girlfriend and our two
+							spiteful, beautiful cats, Wolf and Dorito (pictured below).
 						</p>
 						<p className="text-gray-300 mt-4 text-lg">
-							In my free time I love playing video games (see <a target="_blank" rel="noopener noreferrer" href="https://steamcommunity.com/id/Pixenknight/" className="text-cyan-400 hover:underline">my Steam library<SquareArrowOutUpRight className="inline w-4 h-4 ml-1 mb-1" /></a>), spending time with my girlfriend, and doing lots of traveling around the world.
+							In my free time I love playing video games (see{" "}
+							<a
+								target="_blank"
+								rel="noopener noreferrer"
+								href="https://steamcommunity.com/id/Pixenknight/"
+								className="text-cyan-400 hover:underline"
+							>
+								my Steam library
+								<SquareArrowOutUpRight className="inline w-4 h-4 ml-1 mb-1" />
+							</a>
+							), spending time with my girlfriend, and doing lots of traveling
+							around the world.
 						</p>
 					</div>
 				</div>
@@ -196,5 +212,5 @@ function RouteComponent() {
 				</motion.div>
 			</motion.section>
 		</motion.div>
-	)
+	);
 }

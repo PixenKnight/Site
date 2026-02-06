@@ -1,215 +1,310 @@
-import { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from "react"
-import { motion, MotionProps } from "motion/react"
-
+import { type MotionProps, motion } from "motion/react";
+import {
+	type DetailedHTMLProps,
+	type HTMLAttributes,
+	useEffect,
+	useState,
+} from "react";
 
 interface PhotoProps {
-	src: string
-	alt?: string
-	hoverAltEnabled?: boolean
-	tailwindClasses?: string | { auto?: string, imgClasses?: string, divClasses?: string }
-	props?: MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any> | { 
-		auto?: MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any>, 
-		imgProps?: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement>,
-		divProps?: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-	}
+	src: string;
+	alt?: string;
+	hoverAltEnabled?: boolean;
+	tailwindClasses?:
+		| string
+		| { auto?: string; imgClasses?: string; divClasses?: string };
+	props?:
+		| (MotionProps &
+				DetailedHTMLProps<
+					HTMLAttributes<HTMLImageElement | HTMLDivElement>,
+					HTMLImageElement | HTMLDivElement
+				>)
+		| {
+				auto?: MotionProps &
+					DetailedHTMLProps<
+						HTMLAttributes<HTMLImageElement | HTMLDivElement>,
+						HTMLImageElement | HTMLDivElement
+					>;
+				imgProps?: MotionProps &
+					DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement>;
+				divProps?: MotionProps &
+					DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+		  };
 }
 
 function filterTailwindClasses(tailwindClasses: string | undefined) {
-	if (!tailwindClasses) return { imgClasses: "", divClasses: "" }
+	if (!tailwindClasses) return { imgClasses: "", divClasses: "" };
 
-	let imgClasses = ""
-	let divClasses = ""
+	let imgClasses = "";
+	let divClasses = "";
 
 	// Helper to remove screen size prefixes
 	const removeScreenSizePrefixes = (c: string) => {
-		return c.includes(":") ? c.split(":").pop() : c
-	}
+		return c.includes(":") ? c.split(":").pop() : c;
+	};
 
 	// Filter for margin/padding classes
 	const mpFilter = (c: string) => {
-		const clean = removeScreenSizePrefixes(c)
-		if (!clean) return false
-		return clean.startsWith("m-") || clean.startsWith("p-") || clean.startsWith("mx-") || clean.startsWith("my-") || clean.startsWith("mt-") || clean.startsWith("mb-") || clean.startsWith("ml-") || clean.startsWith("mr-") || clean.startsWith("px-") || clean.startsWith("py-") || clean.startsWith("pt-") || clean.startsWith("pb-") || clean.startsWith("pl-") || clean.startsWith("pr-")
-	}
+		const clean = removeScreenSizePrefixes(c);
+		if (!clean) return false;
+		return (
+			clean.startsWith("m-") ||
+			clean.startsWith("p-") ||
+			clean.startsWith("mx-") ||
+			clean.startsWith("my-") ||
+			clean.startsWith("mt-") ||
+			clean.startsWith("mb-") ||
+			clean.startsWith("ml-") ||
+			clean.startsWith("mr-") ||
+			clean.startsWith("px-") ||
+			clean.startsWith("py-") ||
+			clean.startsWith("pt-") ||
+			clean.startsWith("pb-") ||
+			clean.startsWith("pl-") ||
+			clean.startsWith("pr-")
+		);
+	};
 
 	// Filter size classes
 	const sizeFilter = (c: string) => {
-		const clean = removeScreenSizePrefixes(c)
-		if (!clean) return false
-		return clean.startsWith("w-") || clean.startsWith("h-") || clean.startsWith("max-w-") || clean.startsWith("max-h-") || clean.startsWith("min-w-") || clean.startsWith("min-h-") || clean.startsWith("size-")
-	}
+		const clean = removeScreenSizePrefixes(c);
+		if (!clean) return false;
+		return (
+			clean.startsWith("w-") ||
+			clean.startsWith("h-") ||
+			clean.startsWith("max-w-") ||
+			clean.startsWith("max-h-") ||
+			clean.startsWith("min-w-") ||
+			clean.startsWith("min-h-") ||
+			clean.startsWith("size-")
+		);
+	};
 
 	// Filter overflow classes
 	const overflowFilter = (c: string) => {
-		const clean = removeScreenSizePrefixes(c)
-		if (!clean) return false
-		return clean.startsWith("overflow-")
-	}
+		const clean = removeScreenSizePrefixes(c);
+		if (!clean) return false;
+		return clean.startsWith("overflow-");
+	};
 
 	imgClasses = tailwindClasses
 		.split(" ")
-		.filter(c => !mpFilter(c) && !sizeFilter(c) && !overflowFilter(c))
-		.join(" ")
-	
+		.filter((c) => !mpFilter(c) && !sizeFilter(c) && !overflowFilter(c))
+		.join(" ");
+
 	divClasses = tailwindClasses
 		.split(" ")
-		.filter(c => mpFilter(c) || sizeFilter(c) || overflowFilter(c))
-		.join(" ")
-	
-	return { imgClasses, divClasses }
+		.filter((c) => mpFilter(c) || sizeFilter(c) || overflowFilter(c))
+		.join(" ");
+
+	return { imgClasses, divClasses };
 }
 
 // Need to separate 'key' from other props because React doesn't like it when it's spread into the element props
-function filterProps(props: MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any> | undefined) {
-	if (!props) return { imgProps: {}, divProps: {} }
+function filterProps(
+	props:
+		| (MotionProps &
+				DetailedHTMLProps<
+					HTMLAttributes<HTMLImageElement | HTMLDivElement>,
+					HTMLImageElement | HTMLDivElement
+				>)
+		| undefined,
+) {
+	if (!props) return { imgProps: {}, divProps: {} };
 
-	const imgProps: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement> = {}
-	const divProps: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> = {}
+	const imgProps: MotionProps &
+		DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement> = {};
+	const divProps: MotionProps &
+		DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> = {};
 
 	Object.entries(props).forEach(([key, value]) => {
-		if (key === "animate" || key === "initial" || key === "whileHover" || key === "whileTap" || key === "whileInView" || key === "viewport" || key === "exit") {
+		if (
+			key === "animate" ||
+			key === "initial" ||
+			key === "whileHover" ||
+			key === "whileTap" ||
+			key === "whileInView" ||
+			key === "viewport" ||
+			key === "exit"
+		) {
 			// Margin and padding animations go to div
-			const animateValue = value as any
-			const divMotion: any = {}
-			const imgMotion: any = {}
+			const animateValue = value as any;
+			const divMotion: any = {};
+			const imgMotion: any = {};
 
 			Object.entries(animateValue).forEach(([aKey, aValue]) => {
-				if (aKey.startsWith("margin") || aKey.startsWith("padding") || aKey.startsWith("width")) {
-					divMotion[aKey] = aValue
+				if (
+					aKey.startsWith("margin") ||
+					aKey.startsWith("padding") ||
+					aKey.startsWith("width")
+				) {
+					divMotion[aKey] = aValue;
 				} else {
-					imgMotion[aKey] = aValue
+					imgMotion[aKey] = aValue;
 				}
-			})
+			});
 
 			if (Object.keys(divMotion).length > 0) {
-				divProps[key] = divMotion
+				divProps[key] = divMotion;
 			}
 			if (Object.keys(imgMotion).length > 0) {
-				imgProps[key] = imgMotion
+				imgProps[key] = imgMotion;
 			}
 		} else if (key === "transition") {
-			imgProps.transition = value
-			divProps.transition = value
+			imgProps.transition = value;
+			divProps.transition = value;
 		} else if (key === "draggable") {
-			imgProps.draggable = value
+			imgProps.draggable = value;
 		} else if (key !== "key") {
-			divProps[key as keyof typeof divProps] = value
+			divProps[key as keyof typeof divProps] = value;
 		}
 	});
 
-	return { imgProps, divProps }
+	return { imgProps, divProps };
 }
 
 const hoverImageVariants = {
 	normal: {},
-	hovered: {}
-}
+	hovered: {},
+};
 
 const hoverAltTextVariants = {
 	normal: { y: "100%", opacity: 0 },
-	hovered: { y: "0%", opacity: 1 }
-}
+	hovered: { y: "0%", opacity: 1 },
+};
 
-export default function Photo({src, alt, hoverAltEnabled, tailwindClasses, props}: PhotoProps & MotionProps) {
+export default function Photo({
+	src,
+	alt,
+	hoverAltEnabled,
+	tailwindClasses,
+	props,
+}: PhotoProps & MotionProps) {
 	// Move margin and padding to motion div to avoid description text issues
-	const [ imgClasses, setImgClasses ] = useState("")
-	const [ divClasses, setDivClasses ] = useState("")
+	const [imgClasses, setImgClasses] = useState("");
+	const [divClasses, setDivClasses] = useState("");
 
-	const [ imgProps, setImgProps ] = useState<MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement>>({})
-	const [ divProps, setDivProps ] = useState<MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>>({})
+	const [imgProps, setImgProps] = useState<
+		MotionProps &
+			DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement>
+	>({});
+	const [divProps, setDivProps] = useState<
+		MotionProps &
+			DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+	>({});
 
 	const imgRoundingClass = imgClasses
 		.split(" ")
-		.filter(c => c.includes("rounded"))
-		.join(" ")
+		.filter((c) => c.includes("rounded"))
+		.join(" ");
 	const divRoundingClass = divClasses
 		.split(" ")
-		.filter(c => c.includes("rounded"))
-		.join(" ")
-	const unalteredRounding = imgRoundingClass ?? divRoundingClass ?? ""
+		.filter((c) => c.includes("rounded"))
+		.join(" ");
+	const unalteredRounding = imgRoundingClass ?? divRoundingClass ?? "";
 
 	useEffect(() => {
-		if (!tailwindClasses) return
+		if (!tailwindClasses) return;
 		if (typeof tailwindClasses === "object") {
-			let imgClasses = ""
-			let divClasses = ""
+			let imgClasses = "";
+			let divClasses = "";
 			if (tailwindClasses.auto) {
-				const { imgClasses: autoImgClasses, divClasses: autoDivClasses } = filterTailwindClasses(tailwindClasses.auto)
-				imgClasses = autoImgClasses
-				divClasses = autoDivClasses
+				const { imgClasses: autoImgClasses, divClasses: autoDivClasses } =
+					filterTailwindClasses(tailwindClasses.auto);
+				imgClasses = autoImgClasses;
+				divClasses = autoDivClasses;
 			}
 
 			if (tailwindClasses.imgClasses) {
 				// Filter existing imgClasses to remove duplicates
 				// imgClasses takes precedence over auto
-				let imgIndicators = tailwindClasses.imgClasses.split(" ").flatMap(c => c.split("-")[0])
+				const imgIndicators = tailwindClasses.imgClasses
+					.split(" ")
+					.flatMap((c) => c.split("-")[0]);
 				if (imgIndicators.length === 0) return;
 				const additionalImgClasses = imgClasses
 					.split(" ")
-					.filter(c => !imgIndicators.includes(c.split("-")[0]))
-					.join(" ")
-				imgClasses = `${tailwindClasses.imgClasses} ${additionalImgClasses}`.trim()
+					.filter((c) => !imgIndicators.includes(c.split("-")[0]))
+					.join(" ");
+				imgClasses =
+					`${tailwindClasses.imgClasses} ${additionalImgClasses}`.trim();
 			}
 
 			if (tailwindClasses.divClasses) {
 				// Filter existing divClasses to remove duplicates
 				// divClasses takes precedence over auto
-				let divIndicators = tailwindClasses.divClasses.split(" ").flatMap(c => c.split("-")[0])
+				const divIndicators = tailwindClasses.divClasses
+					.split(" ")
+					.flatMap((c) => c.split("-")[0]);
 				if (divIndicators.length === 0) return;
 				const additionalDivClasses = divClasses
 					.split(" ")
-					.filter(c => !divIndicators.includes(c.split("-")[0]))
-					.join(" ")
-				divClasses = `${tailwindClasses.divClasses} ${additionalDivClasses}`.trim()
+					.filter((c) => !divIndicators.includes(c.split("-")[0]))
+					.join(" ");
+				divClasses =
+					`${tailwindClasses.divClasses} ${additionalDivClasses}`.trim();
 			}
 
-			setImgClasses(imgClasses)
-			setDivClasses(divClasses)
-			
-			return
-		}
-		const { imgClasses, divClasses } = filterTailwindClasses(tailwindClasses)
-		setImgClasses(imgClasses)
-		setDivClasses(divClasses)
+			setImgClasses(imgClasses);
+			setDivClasses(divClasses);
 
-	}, [tailwindClasses])
+			return;
+		}
+		const { imgClasses, divClasses } = filterTailwindClasses(tailwindClasses);
+		setImgClasses(imgClasses);
+		setDivClasses(divClasses);
+	}, [tailwindClasses]);
 
 	useEffect(() => {
-		if (!props) return
+		if (!props) return;
 
-		if (typeof props === "object" && ("auto" in props || "imgProps" in props || "divProps" in props)) {
-			let newImgProps: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement> = {}
-			let newDivProps: MotionProps & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> = {}
+		if (
+			typeof props === "object" &&
+			("auto" in props || "imgProps" in props || "divProps" in props)
+		) {
+			let newImgProps: MotionProps &
+				DetailedHTMLProps<HTMLAttributes<HTMLImageElement>, HTMLImageElement> =
+				{};
+			let newDivProps: MotionProps &
+				DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> = {};
 
 			if ("auto" in props && props.auto) {
-				const { imgProps: autoImgProps, divProps: autoDivProps } = filterProps(props.auto)
-				newImgProps = { ...autoImgProps }
-				newDivProps = { ...autoDivProps }
+				const { imgProps: autoImgProps, divProps: autoDivProps } = filterProps(
+					props.auto,
+				);
+				newImgProps = { ...autoImgProps };
+				newDivProps = { ...autoDivProps };
 			}
 
 			if ("imgProps" in props && props.imgProps) {
 				// Filter out any overlapping keys, imgProps takes precedence
 				Object.entries(props.imgProps).forEach(([key, value]) => {
-					newImgProps[key as keyof typeof newImgProps] = value
-				})
+					newImgProps[key as keyof typeof newImgProps] = value;
+				});
 			}
 
 			if ("divProps" in props && props.divProps) {
 				// Filter out any overlapping keys, divProps takes precedence
 				Object.entries(props.divProps).forEach(([key, value]) => {
-					newDivProps[key as keyof typeof newDivProps] = value
-				})
+					newDivProps[key as keyof typeof newDivProps] = value;
+				});
 			}
 
-			setImgProps(newImgProps)
-			setDivProps(newDivProps)
-			return
+			setImgProps(newImgProps);
+			setDivProps(newDivProps);
+			return;
 		}
 
-		const { imgProps, divProps } = filterProps(props as MotionProps & DetailedHTMLProps<HTMLAttributes<any>, any>)
-		setImgProps(imgProps)
-		setDivProps(divProps)
-	}, [props])
+		const { imgProps, divProps } = filterProps(
+			props as MotionProps &
+				DetailedHTMLProps<
+					HTMLAttributes<HTMLImageElement | HTMLDivElement>,
+					HTMLImageElement | HTMLDivElement
+				>,
+		);
+		setImgProps(imgProps);
+		setDivProps(divProps);
+	}, [props]);
 
 	return (
 		<motion.div
@@ -231,13 +326,17 @@ export default function Photo({src, alt, hoverAltEnabled, tailwindClasses, props
 			/>
 
 			{/* Hover alt text */}
-			<div className={`absolute bottom-0 left-0 right-0 top-0 overflow-hidden pointer-events-none ${unalteredRounding}`}>
-				<motion.div 
+			<div
+				className={`absolute bottom-0 left-0 right-0 top-0 overflow-hidden pointer-events-none ${unalteredRounding}`}
+			>
+				<motion.div
 					className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 from-70% to-transparent pointer-events-auto"
 					variants={hoverAltTextVariants}
 					transition={{ duration: 0.3, ease: "easeInOut" }}
 				>
-					<p className="text-white text-lg m-2 text-center select-text">{alt}</p>
+					<p className="text-white text-lg m-2 text-center select-text">
+						{alt}
+					</p>
 				</motion.div>
 
 				{/* Alt: solid slate background */}
@@ -250,5 +349,5 @@ export default function Photo({src, alt, hoverAltEnabled, tailwindClasses, props
 				</motion.div> */}
 			</div>
 		</motion.div>
-	)
+	);
 }

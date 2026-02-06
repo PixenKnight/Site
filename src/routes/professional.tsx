@@ -1,13 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/professional')({
+export const Route = createFileRoute("/professional")({
 	component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  	return (
+	return (
 		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900">
 			Hello "/professional"!
 		</div>
-	)
+	);
 }
