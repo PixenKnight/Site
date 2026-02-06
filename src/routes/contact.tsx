@@ -122,14 +122,14 @@ function RouteComponent() {
 		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900 pb-6">
 			<section className="max-w-4xl mx-auto h-min p-8 text-gray-200 ">
 				<div className="relative text-center items-center flex flex-col gap-6">
-					<h1 className="text-5xl md:text-7xl font-black text-white [letter-spacing:-0.01em] transform duration-300 ease-in-out motion-safe:hover:-translate-y-1 mb-8">
+					<h1 className="text-5xl md:text-7xl font-black text-white [letter-spacing:-0.01em] transform duration-300 ease-in-out motion-safe:hover:-translate-y-1 mb-4">
 						<span className="text-gray-200">Contact</span>{' '}
 						<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Me</span>
 					</h1>
 					<p>If you'd like to get in touch, please leave your contact information below! I'll reach out as soon as possible. Whether it's for professional inquiries, collaborations, or just to say hello, I'm excited to hear from you!</p>
 					<p>Form submissions are handled by the good folks at <a href="https://formsubmit.co/" target="_blank" className="text-cyan-400 hover:underline">FormSubmit</a>. Apologies if your message gets filtered by their spam protection.</p>
-					<p>Alternatively, find me at one of the following platforms:</p>
-					<MediaIcons/>
+					<p>Alternatively, find me on LinkedIn:</p>
+					<MediaIcons size={40} exclude={["github", "steam"]}/>
 				</div>
 			</section>
 			<section className="max-w-4xl md:mx-auto mx-4 p-8 bg-gray-800 rounded-lg shadow-lg relative z-10">
@@ -283,7 +283,7 @@ function RouteComponent() {
 					<div className="flex justify-end">
 						<button
 							type="submit"
-							className="px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-lg transition-colors"
+							className={`px-6 py-3 ${allowSubmit ? "bg-cyan-600 hover:bg-cyan-700" : "bg-gray-600 cursor-not-allowed"} text-white font-bold rounded-lg transition-colors`}
 						>
 							Send Message
 						</button>
