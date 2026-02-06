@@ -112,7 +112,7 @@ function CarouselLi(props: {
 
 	return (
 		<motion.li 
-			className="flex inline-block flex-shrink-0 flex-grow-0 snap-center"
+			className="flex flex-shrink-0 flex-grow-0 snap-center items-center"
 			ref={ref}
 		>
 			<Photo
@@ -120,7 +120,7 @@ function CarouselLi(props: {
 				alt={props.altText}
 				hoverAltEnabled
 				tailwindClasses={{
-					imgClasses: "rounded-lg h-100 outline-2 outline-offset-4 select-none",
+					imgClasses: "rounded-lg md:h-100 outline-2 outline-offset-4 select-none not-md:max-w-70",
 					divClasses: "mx-4"
 				}}
 				props={{
