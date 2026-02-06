@@ -166,7 +166,7 @@ export default function ScrollCarousel(props: { photos: string[], altTexts: stri
 	const isUserDiscreteScrolling = useRef(false);
 	const discreteScrollTimeout = useRef<number | null>(null);
 
-	// Helper function to set isUserDiscreteScrolling to true for 100 ms after a discrete scroll (i.e. through the buttons or a scroll wheel)
+	// Helper function to set isUserDiscreteScrolling to true for 200 ms after a discrete scroll (i.e. through the buttons or a scroll wheel)
 	const setUserDiscreteScrolling = () => {
 		isUserDiscreteScrolling.current = true
 
@@ -179,7 +179,7 @@ export default function ScrollCarousel(props: { photos: string[], altTexts: stri
 		discreteScrollTimeout.current = window.setTimeout(() => {
 			isUserDiscreteScrolling.current = false
 			discreteScrollTimeout.current = null
-		}, 100)
+		}, 200)
 	}
 
 	// useEffect to scroll to whatever element is selected if the user is scrolling with a wheel or moving the carousel through the buttons
@@ -236,13 +236,13 @@ export default function ScrollCarousel(props: { photos: string[], altTexts: stri
 				setSelected(inViewIndex)
 			}
 		} else if (discreteScrollTimeout.current) {
-			// User is currently scrolling in discrete amounts, so prevent this event from firing until 100 ms after the scroll has ended
+			// User is currently scrolling in discrete amounts, so prevent this event from firing until 200 ms after the scroll has ended
 			// Prevents this event from firing in the middle of a discrete scroll, leading to odd bounces
 			window.clearTimeout(discreteScrollTimeout.current)
 			discreteScrollTimeout.current = window.setTimeout(() => {
 				isUserDiscreteScrolling.current = false
 				discreteScrollTimeout.current = null
-			}, 100)
+			}, 200)
 		}
 	})
 

@@ -36,6 +36,15 @@ const catPhotos = {
 	]
 }
 
+const mePhotos = {
+	photos: [
+
+	],
+	altTexts: [
+
+	]
+}
+
 const pageVariants = {
 	initial: {},
 	visible: {}
@@ -55,9 +64,29 @@ const sectionVariants = {
 	}
 }
 
+const carouselVariants = {
+	visible: {
+		opacity: 1,
+		display: "block",
+		transition: {
+			duration: 0.5,
+			delay: 0.5
+		}
+	},
+	invisible: {
+		opacity: 0,
+		display: "none",
+		transition: {
+			duration: 0.5
+		}
+	}
+}
+
 function RouteComponent() {
 	const [ photoPath, setPhotoPath ] = useState("/Me-With-Shanti.JPEG")
 	const windowWidth = useWindowWidth()
+
+	const [ carouselToggle, setCarouselToggle ] = useState(false)
 
 	useEffect(() => {
 		if (windowWidth < 768) {
@@ -134,14 +163,32 @@ function RouteComponent() {
 						rightColor="#ad46ff"
 						ballColor="#fff"
 						startRight={false}
+						labels={["Cats", "Me"]}
+						isRight={[carouselToggle, setCarouselToggle]}
 					/>
 				</div>
-				<div className="flex align-center justify-center">
+				<motion.div
+					className="flex align-center justify-center"
+					variants={carouselVariants}
+					animate={carouselToggle ? "invisible" : "visible"}
+					initial="invisible"
+				>
 					<ScrollCarousel
 						photos={catPhotos.photos}
 						altTexts={catPhotos.altTexts}
 					/>
-				</div>
+				</motion.div>
+				<motion.div
+					className="flex align-center justify-center"
+					variants={carouselVariants}
+					animate={carouselToggle ? "visible" : "invisible"}
+					initial="visible"
+				>
+					<ScrollCarousel
+						photos={mePhotos.photos}
+						altTexts={mePhotos.altTexts}
+					/>
+				</motion.div>
 			</motion.section>
 		</motion.div>
 	)
