@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 
 import Photo from '../components/Photo'
+import Toggle from '../components/Toggle'
 
 import {
 	SquareArrowOutUpRight
@@ -121,12 +122,20 @@ function RouteComponent() {
 				</div>
 			</motion.section>
 			<motion.section
-				className="py-6 px-6 mx-auto bg-slate-900 overflow-hidden"
+				className="py-6 px-6 md:px-100 mx-auto bg-slate-900 overflow-hidden"
 				variants={sectionVariants}
 				initial="initial"
 				animate="visible"
 				custom={1}
 			>
+				<div className="items-center flex flex-row justify-end">
+					<Toggle
+						leftColor="#00b8db"
+						rightColor="#ad46ff"
+						ballColor="#fff"
+						startRight={false}
+					/>
+				</div>
 				<div className="flex align-center justify-center">
 					<ScrollCarousel
 						photos={catPhotos.photos}
