@@ -252,10 +252,6 @@ export default function ScrollCarousel(props: {
 			false,
 		);
 
-		// Prevent odd behavior on load where the carousel isn't at the first element
-		setUserDiscreteScrolling();
-		setSelected(0);
-
 		return () => {
 			// Prevent duplicate event listeners when reloading
 			ul.removeEventListener("wheel", () => {}, false);
