@@ -89,16 +89,6 @@ function RouteComponent() {
 								Paul Maresquier
 							</span>
 						</h1>
-						<p className="text-gray-300 mt-4 text-lg">
-							While I am originally from Mexico, I've been living in San
-							Francisco (USA) for the last {new Date().getFullYear() - 2021}{" "}
-							years. I currently live with my loving girlfriend and our two
-							spiteful, beautiful cats, Wolf and Dorito (pictured below).
-						</p>
-						<p className="text-gray-300 mt-4 text-lg">
-							In my free time I love spending time with my girlfriend, and doing lots of traveling
-							around the world.
-						</p>
 					</div>
 				</div>
 			</motion.section>
