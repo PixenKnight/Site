@@ -33,18 +33,26 @@ const catPhotos = {
 
 const mePhotos = {
 	photos: [
-		"/me-photos/Me-Mom-Kyra-Loch.JPEG",
-		"/me-photos/Me-Kyra-Grad.JPEG",
-		"/me-photos/Me-Mom-Kyra-Muir.JPEG",
-		"/me-photos/Me-Kyra-Ski.JPEG",
-		"/me-photos/Me-Mom-Kyra-Paris.JPEG",
+		"/me-photos/Me-Gf-Train-Italy.JPEG",
+		"/me-photos/Me-Mom-Sister-Loch.JPEG",
+		"/me-photos/Me-Sister-Grad.JPEG",
+		"/me-photos/Gf-Ercolano.JPEG",
+		"/me-photos/Me-Mom-Sister-Muir.JPEG",
+		"/me-photos/Me-Sister-Ski.JPEG",
+		"/me-photos/Me-Mom-Sister-Paris.JPEG",
+		"/me-photos/Me-Gf-Airport.JPEG",
+		"/me-photos/Gf-Wolf-Stare.JPEG"
 	],
 	altTexts: [
+		"My girlfriend and I on the train, exhausted from traveling around Italy.",
 		"My mom, my sister, and I at Loch Ness in Scotland.",
 		"My sister and I at my graduation.",
+		"My girlfriend standing in Ercolano, Italy, surrounded by vines.",
 		"My mom, my sister, and I at Muir Woods in California.",
 		"My sister and I skiing in Meribel.",
 		"My mom, my sister, and I in Paris.",
+		"My girlfriend and I at the airport.",
+		"My girlfriend and Wolf staring me down."
 	],
 };
 
@@ -117,7 +125,7 @@ function RouteComponent() {
 				<div className="flex justify-center items-center gap-4 max-w-5xl mx-auto md:flex-row not-md:flex-col">
 					<Photo
 						src={photoPath}
-						alt="Picture of me with my girlfriend's cat Shanti"
+						alt="Picture of me with my girlfriend's cat Shanti."
 						hoverAltEnabled
 						tailwindClasses={{
 							imgClasses: "md:w-6xl not-md:max-w-xs",
