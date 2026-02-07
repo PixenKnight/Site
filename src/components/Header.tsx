@@ -6,7 +6,7 @@ import {
 	Home,
 	MailPlus,
 	Menu,
-	// SquareCode,
+	SquareCode,
 	X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 const orderedRoutes = [
 	{ path: "/", name: "Home", icon: Home },
 	{ path: "/personal", name: "Personal", icon: CircleUserRound },
-	// {path: '/professional', name: 'Professional', icon: SquareCode},
+	{ path: '/professional', name: 'Professional', icon: SquareCode },
 	// {path: '/portfolio', name: 'Portfolio', icon: BriefcaseBusiness},
 	{ path: "/contact", name: "Contact", icon: MailPlus },
 ];
