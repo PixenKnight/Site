@@ -41,7 +41,7 @@ const mePhotos = {
 		"/me-photos/Me-Sister-Ski.JPEG",
 		"/me-photos/Me-Mom-Sister-Paris.JPEG",
 		"/me-photos/Me-Gf-Airport.JPEG",
-		"/me-photos/Gf-Wolf-Stare.JPEG"
+		"/me-photos/Gf-Wolf-Stare.JPEG",
 	],
 	altTexts: [
 		"My girlfriend and I on the train, exhausted from traveling around Italy.",
@@ -52,7 +52,7 @@ const mePhotos = {
 		"My sister and I skiing in Meribel.",
 		"My mom, my sister, and I in Paris.",
 		"My girlfriend and I at the airport.",
-		"My girlfriend and Wolf staring me down."
+		"My girlfriend and Wolf staring me down.",
 	],
 };
 

@@ -1,18 +1,17 @@
+import { useWindowWidth } from "@react-hook/window-size";
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "motion/react";
-import { useEffect, useState } from "react";
-import { useWindowWidth } from "@react-hook/window-size"
-
 import {
+	CircuitBoard,
+	Computer,
 	Route as RouteIcon,
 	Server,
 	Sparkles,
 	SquareTerminal,
-	CircuitBoard,
-	Computer,
-} from "lucide-react"
+} from "lucide-react";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
-import Photo from "../components/Photo"
+import Photo from "../components/Photo";
 
 export const Route = createFileRoute("/professional")({
 	component: RouteComponent,

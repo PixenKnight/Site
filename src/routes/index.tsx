@@ -1,7 +1,6 @@
-import MediaIcons from "@/components/MediaIcons";
 import { createFileRoute } from "@tanstack/react-router";
-
 import { motion } from "motion/react";
+import MediaIcons from "@/components/MediaIcons";
 
 export const Route = createFileRoute("/")({ component: App });
 

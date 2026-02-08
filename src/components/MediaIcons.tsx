@@ -11,7 +11,7 @@ export type MediaIconsProps = {
 export type IconProps = {
 	size?: number;
 	extended?: boolean;
-}
+};
 
 function GitHubIcon(props: IconProps) {
 	const size = props.size ?? 20;
@@ -27,6 +27,7 @@ function GitHubIcon(props: IconProps) {
 			{props.extended ? (
 				<button
 					className="flex items-center gap-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 rounded-lg border-2 border-slate-700 hover:border-slate-600 cursor-pointer"
+					type="button"
 				>
 					<SiGithub name="githubIcon" size={size} className="cursor-pointer" />
 					<label htmlFor="githubIcon" className="cursor-pointer">
@@ -34,17 +35,16 @@ function GitHubIcon(props: IconProps) {
 					</label>
 				</button>
 			) : (
-				<SiGithub size={size}/>
+				<SiGithub size={size} />
 			)}
 		</a>
-	)
+	);
 }
 
 function LinkedInIcon(props: IconProps) {
 	const size = props.size ?? 20;
 
 	return (
-
 		<a
 			href="https://www.linkedin.com/in/paul-mares"
 			title="LinkedIn"
@@ -55,6 +55,7 @@ function LinkedInIcon(props: IconProps) {
 			{props.extended ? (
 				<button
 					className="flex items-center gap-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 rounded-lg border-2 border-slate-700 hover:border-slate-600 cursor-pointer"
+					type="button"
 				>
 					<svg
 						role="img"
@@ -103,14 +104,13 @@ function LinkedInIcon(props: IconProps) {
 				</svg>
 			)}
 		</a>
-	)
+	);
 }
 
 function SteamIcon(props: IconProps) {
 	const size = props.size ?? 20;
 
 	return (
-
 		<a
 			href="https://steamcommunity.com/id/PixenKnight/"
 			title="Steam"
@@ -121,6 +121,7 @@ function SteamIcon(props: IconProps) {
 			{props.extended ? (
 				<button
 					className="flex items-center gap-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 rounded-lg border-2 border-slate-700 hover:border-slate-600 cursor-pointer"
+					type="button"
 				>
 					<SiSteam name="steamIcon" size={size} className="cursor-pointer" />
 					<label htmlFor="steamIcon" className="cursor-pointer">
@@ -128,10 +129,10 @@ function SteamIcon(props: IconProps) {
 					</label>
 				</button>
 			) : (
-				<SiSteam size={size}/>
+				<SiSteam size={size} />
 			)}
 		</a>
-	)
+	);
 }
 
 export default function MediaIcons(props: MediaIconsProps) {
@@ -153,13 +154,13 @@ export default function MediaIcons(props: MediaIconsProps) {
 	return (
 		<div className="flex gap-4 text-gray-500 fill-gray-500 ">
 			{iconsToRender.github && (
-				<GitHubIcon size={iconSize} extended={props.extended}/>
+				<GitHubIcon size={iconSize} extended={props.extended} />
 			)}
 			{iconsToRender.linkedin && (
-				<LinkedInIcon size={iconSize} extended={props.extended}/>
+				<LinkedInIcon size={iconSize} extended={props.extended} />
 			)}
 			{iconsToRender.steam && (
-				<SteamIcon size={iconSize} extended={props.extended}/>
+				<SteamIcon size={iconSize} extended={props.extended} />
 			)}
 		</div>
 	);
