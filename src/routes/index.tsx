@@ -1,8 +1,5 @@
 import MediaIcons from "@/components/MediaIcons";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-	MessageCircle
-} from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { motion } from "motion/react";
 
