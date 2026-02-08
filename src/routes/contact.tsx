@@ -155,8 +155,8 @@ function RouteComponent() {
 						</a>
 						. Apologies if your message gets filtered by their spam protection.
 					</p>
-					<p>Alternatively, find me on LinkedIn:</p>
-					<MediaIcons size={40} exclude={["github", "steam"]} />
+					<p>Alternatively, find me here:</p>
+					<MediaIcons size={40} exclude={["github", "steam"]} extended/>
 				</div>
 			</section>
 			<section className="max-w-4xl md:mx-auto mx-4 p-8 bg-gray-800 rounded-lg shadow-lg relative z-10">
