@@ -1,5 +1,6 @@
 import { useWindowWidth } from "@react-hook/window-size";
 import { createFileRoute } from "@tanstack/react-router";
+
 import {
 	CircuitBoard,
 	Computer,
@@ -9,10 +10,25 @@ import {
 	SquareTerminal,
 	SquareArrowOutUpRight,
 } from "lucide-react";
+
+import {
+	SiReact,
+	SiVite,
+	SiGithub,
+	SiTailwindcss,
+	SiLucide,
+	SiSimpleicons,
+	SiCloudflare,
+	SiTypescript,
+	SiNodedotjs,
+	SiBiome,
+} from "@icons-pack/react-simple-icons";
+
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Photo from "../components/Photo";
+import { MotionIcon } from "../components/MediaIcons"
 
 export const Route = createFileRoute("/professional")({
 	component: RouteComponent,
@@ -58,21 +74,21 @@ const cards = [
 ];
 
 const stack = [
-	{ text: "React", url: "https://react.dev/" },
-	{ text: "TanStack Router", url: "https://tanstack.com/router/" },
-	{ text: "TanStack Start", url: "https://tanstack.com/start/" },
-	{ text: "Vite", url: "https://vitejs.dev/" },
-	{ text: "GitHub", url: "https://github.com/" },
-	{ text: "Motion", url: "https://motion.dev/" },
-	{ text: "Tailwind", url: "https://tailwindcss.com/" },
-	{ text: "Lucide", url: "https://lucide.dev/" },
-	{ text: "Simple Icons", url: "https://simpleicons.org/" },
-	{ text: "Cloudflare", url: "https://www.cloudflare.com/" },
-	{ text: "TypeScript", url: "https://www.typescriptlang.org/" },
-	{ text: "Node.JS", url: "https://nodejs.org/" },
-	{ text: "Nitro", url: "https://nitro.unjs.io/" },
-	{ text: "Biome", url: "https://biomejs.dev/" },
-	{ text: "Systemd & Bash", url: "https://systemd.io/" },
+	{ text: "React", url: "https://react.dev/", icon: <SiReact size={20} /> },
+	{ text: "TanStack Router", url: "https://tanstack.com/router/", icon: <img width={20} height={20} src="/icons/tanstack.svg" style={{filter: "invert(1)"}}/> },
+	{ text: "TanStack Start", url: "https://tanstack.com/start/", icon: <img width={20} height={20} src="/icons/tanstack.svg" style={{filter: "invert(1)"}}/> },
+	{ text: "Vite", url: "https://vitejs.dev/", icon: <SiVite size={20} /> },
+	{ text: "GitHub", url: "https://github.com/", icon: <SiGithub size={20} /> },
+	{ text: "Motion", url: "https://motion.dev/", icon: <MotionIcon size={20} fill1="#fff" fill2="#1d293d" /> },
+	{ text: "Tailwind", url: "https://tailwindcss.com/", icon: <SiTailwindcss size={20} /> },
+	{ text: "Lucide", url: "https://lucide.dev/", icon: <SiLucide size={20} /> },
+	{ text: "Simple Icons", url: "https://simpleicons.org/", icon: <SiSimpleicons size={20} /> },
+	{ text: "Cloudflare", url: "https://www.cloudflare.com/", icon: <SiCloudflare size={20} /> },
+	{ text: "TypeScript", url: "https://www.typescriptlang.org/", icon: <SiTypescript size={20} /> },
+	{ text: "Node.JS", url: "https://nodejs.org/", icon: <SiNodedotjs size={20} /> },
+	{ text: "Nitro", url: "https://nitro.unjs.io/", icon: <img width={20} height={20} src="/icons/nitro.svg" style={{filter: "saturate(0) contrast(2) brightness(2)"}}/> },
+	{ text: "Biome", url: "https://biomejs.dev/", icon: <SiBiome size={20} /> },
+	{ text: "Systemd & Bash", url: "https://systemd.io/", icon: <SquareTerminal size={20} /> },
 ]
 
 const specialThanks = [
@@ -124,7 +140,7 @@ const sectionVariants = {
 };
 
 
-function StackLI({ value, index, total }: {value: { text: string, url: string }, index: number, total: number}) {
+function StackLI({ value, index, total }: {value: { text: string, url: string, icon?: React.ReactNode }, index: number, total: number}) {
 	const lightnessBounds = [0.7224, 0.6217]
 	const chromaBounds = [0.129759, 0.2589]
 	const hueBounds = [217.9549, 305.31]
@@ -138,10 +154,16 @@ function StackLI({ value, index, total }: {value: { text: string, url: string },
 	return (
 		<li
 			key={value.text}
-			className="border-b-3 rounded-xs flex justify-center w-fit"
-			style={{ borderColor: borderColor }}
+			className="w-max grow flex"
 		>
-			<a href={value.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+			<a 
+				href={value.url} 
+				target="_blank" 
+				rel="noopener noreferrer" 
+				className="flex items-center gap-1 border-2 rounded-md grow justify-center w-max p-2 bg-slate-800 hover:bg-slate-700 fill-slate-800 hover:fill-slate-700 transition-colors text-white fill-white cursor-pointer"
+				style={{ borderColor: borderColor }}
+			>
+				{value.icon}
 				{value.text}
 			</a>
 		</li>
@@ -273,7 +295,7 @@ function RouteComponent() {
 			</section>
 			<section className="py-16 px-6 max-w-7xl mx-auto">
 				<div className="flex flex-col items-center gap-4">
-					<div className="flex items-start w-full">
+					<div className="flex justify-center w-full">
 						<h2 className="text-4xl font-bold text-white mb-4">
 							This Website's Tech Stack
 						</h2>
@@ -282,15 +304,15 @@ function RouteComponent() {
 						initial={{ opacity: 0 }}
 						whileInView={{ opacity: 1 }}
 						transition={{ duration: 0.5, ease: "easeOut" }}
-						className="gap-8 flex flex-col"
+						className="gap-8 flex flex-col items-center"
 					>
-						<ul className="text-white list-none flex flex-col md:flex-row gap-2 relative items-center md:items-end justify-center">
+						<ul className="text-white list-none flex flex-row gap-2 relative items-center justify-center max-w-[90%] md:max-w-[60%] flex-wrap">
 							{stack.map((value, index) => (
 								<StackLI key={value.text} value={value} index={index} total={stack.length} />
 							))}
 						</ul>
 						<p className="text-white text-center">With special thanks to:</p>
-						<ul className="text-white list-none flex flex-col md:flex-row gap-2 relative items-center md:items-end justify-center">
+						<ul className="text-white list-none flex flex-row gap-2 relative items-center justify-center max-w-[90%] md:max-w-[60%] flex-wrap">
 							{specialThanks.map((value, index) => (
 								<StackLI key={value.text} value={value} index={index} total={specialThanks.length} />
 							))}

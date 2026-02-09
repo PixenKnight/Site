@@ -13,6 +13,15 @@ export type IconProps = {
 	extended?: boolean;
 };
 
+export function MotionIcon({size, fill1, fill2}: {size: number, fill1: string, fill2: string}) {
+	return (
+		<svg display="block" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg" fill="inherit">
+			<path d="M 0 6 C 0 2.686 2.686 0 6 0 L 29 0 C 32.314 0 35 2.686 35 6 L 35 29 C 35 32.314 32.314 35 29 35 L 6 35 C 2.686 35 0 32.314 0 29 Z" fill={fill1} height={size} width={size}/>
+			<path d="M 9.587 0 L 4.57 9 L 0 9 L 3.917 1.972 C 4.524 0.883 6.039 0 7.301 0 Z M 20.794 2.25 C 20.794 1.007 21.817 0 23.079 0 C 24.341 0 25.364 1.007 25.364 2.25 C 25.364 3.493 24.341 4.5 23.079 4.5 C 21.817 4.5 20.794 3.493 20.794 2.25 Z M 10.443 0 L 15.013 0 L 9.997 9 L 5.427 9 Z M 15.841 0 L 20.411 0 L 16.494 7.028 C 15.887 8.117 14.372 9 13.11 9 L 10.825 9 Z" fill={fill2} height={(9/35) * size} transform="translate(5 13)" width={(25.363635327216727/35) * size}/>
+		</svg>
+	)
+}
+
 function GitHubIcon(props: IconProps) {
 	const size = props.size ?? 20;
 
