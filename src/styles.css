@@ -13,16 +13,3 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 		monospace;
 }
-
-@theme {
-	--animate-slow-pulse: pulse 10s ease-in-out infinite;
-	@keyframes pulse {
-		0%,
-		100% {
-			opacity: 0.7;
-		}
-		50% {
-			opacity: 0.2;
-		}
-	}
-}
