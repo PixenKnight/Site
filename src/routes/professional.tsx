@@ -7,7 +7,7 @@ import {
 	Server,
 	Sparkles,
 	SquareTerminal,
-	SquareArrowOutUpRight
+	SquareArrowOutUpRight,
 } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -23,7 +23,7 @@ const cards = [
 		icon: <Computer className="w-12 h-12 text-cyan-400" />,
 		title: "Tech Enthusiast",
 		description:
-			'Anything tech-related catches my interest, from this website running on my Raspberry Pi to my "Trash Can" Mac Pro. I love exploring all technologies and integrating them into my projects.',
+			'Anything tech-related catches my interest, from this website running on my Raspberry Pi to an EKS-deployed application. I love exploring all technologies and integrating them into my projects.',
 	},
 	{
 		icon: <Server className="w-12 h-12 text-cyan-400" />,
@@ -35,7 +35,7 @@ const cards = [
 		icon: <RouteIcon className="w-12 h-12 text-cyan-400" />,
 		title: "Frontend Aficionado",
 		description:
-			"I may not have the best eye for design, but I am great at implementing a vision using React, Tailwind CSS, and modern frontend tools to create responsive and user-friendly interfaces (this site runs on TanStack Router and Vite!).",
+			"I may not have the best eye for design, but I am great at implementing a vision using React, Tailwind CSS, and modern frontend tools to create responsive and user-friendly interfaces (check out this site's tech stack below!).",
 	},
 	{
 		icon: <SquareTerminal className="w-12 h-12 text-cyan-400" />,
@@ -56,6 +56,30 @@ const cards = [
 			"Graduated with a BS in Computer Science and a concentration in Artificial Intelligence, I leverage AI and machine learning techniques to enhance and develop intelligent applications that solve complex problems.",
 	},
 ];
+
+const stack = [
+	{ text: "React", url: "https://react.dev/" },
+	{ text: "TanStack Router", url: "https://tanstack.com/router/" },
+	{ text: "TanStack Start", url: "https://tanstack.com/start/" },
+	{ text: "Vite", url: "https://vitejs.dev/" },
+	{ text: "GitHub", url: "https://github.com/" },
+	{ text: "Motion", url: "https://motion.dev/" },
+	{ text: "Tailwind", url: "https://tailwindcss.com/" },
+	{ text: "Lucide", url: "https://lucide.dev/" },
+	{ text: "Simple Icons", url: "https://simpleicons.org/" },
+	{ text: "Cloudflare", url: "https://www.cloudflare.com/" },
+	{ text: "TypeScript", url: "https://www.typescriptlang.org/" },
+	{ text: "Node.JS", url: "https://nodejs.org/" },
+	{ text: "Nitro", url: "https://nitro.unjs.io/" },
+	{ text: "Biome", url: "https://biomejs.dev/" },
+	{ text: "Systemd & Bash", url: "https://systemd.io/" },
+]
+
+const specialThanks = [
+	{ text: "My Girlfriend", url: "https://www.linkedin.com/in/mya-escalante-0b3176214/"},
+	{ text: "OKLCH Color Picker", url: "https://oklch.com/" },
+	{ text: "Raspberry Pi", url: "https://www.raspberrypi.com/" },
+]
 
 function Card({
 	icon,
@@ -98,6 +122,31 @@ const sectionVariants = {
 		};
 	},
 };
+
+
+function StackLI({ value, index, total }: {value: { text: string, url: string }, index: number, total: number}) {
+	const lightnessBounds = [0.7224, 0.6217]
+	const chromaBounds = [0.129759, 0.2589]
+	const hueBounds = [217.9549, 305.31]
+
+	const lightness = lightnessBounds[0] + (lightnessBounds[1] - lightnessBounds[0]) * (index / (total - 1));
+	const chroma = chromaBounds[0] + (chromaBounds[1] - chromaBounds[0]) * (index / (total - 1));
+	const hue = hueBounds[0] + (hueBounds[1] - hueBounds[0]) * (index / (total - 1));
+
+	const borderColor = `oklch(${lightness} ${chroma} ${hue})`;
+
+	return (
+		<li
+			key={value.text}
+			className="border-b-3 rounded-xs flex justify-center w-fit"
+			style={{ borderColor: borderColor }}
+		>
+			<a href={value.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+				{value.text}
+			</a>
+		</li>
+	)
+}
 
 function RouteComponent() {
 	const [photoPath, setPhotoPath] = useState("/me-photos/Me-Bus.JPEG");
@@ -233,8 +282,19 @@ function RouteComponent() {
 						initial={{ opacity: 0 }}
 						whileInView={{ opacity: 1 }}
 						transition={{ duration: 0.5, ease: "easeOut" }}
+						className="gap-8 flex flex-col"
 					>
-						
+						<ul className="text-white list-none flex flex-col md:flex-row gap-2 relative items-center md:items-end justify-center">
+							{stack.map((value, index) => (
+								<StackLI key={value.text} value={value} index={index} total={stack.length} />
+							))}
+						</ul>
+						<p className="text-white text-center">With special thanks to:</p>
+						<ul className="text-white list-none flex flex-col md:flex-row gap-2 relative items-center md:items-end justify-center">
+							{specialThanks.map((value, index) => (
+								<StackLI key={value.text} value={value} index={index} total={specialThanks.length} />
+							))}
+						</ul>
 					</motion.div>
 				</div>
 			</section>
