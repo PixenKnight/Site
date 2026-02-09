@@ -131,7 +131,7 @@ function RouteComponent() {
 		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900 pb-6">
 			<section className="max-w-4xl mx-auto h-min p-8 text-gray-200 ">
 				<div className="relative text-center items-center flex flex-col gap-6">
-					<h1 className="text-5xl md:text-7xl font-black text-white [letter-spacing:-0.01em] transform duration-300 ease-in-out motion-safe:hover:-translate-y-1 mb-4">
+					<h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.01em] transform duration-300 ease-in-out motion-safe:hover:-translate-y-1 mb-4">
 						<span className="text-gray-200">Contact</span>{" "}
 						<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
 							Me
@@ -242,55 +242,57 @@ function RouteComponent() {
 							/>
 						</div>
 						{email.length > 0 && phone.length > 0 && (
-							<div className="mt-4">
+							<div className="mt-4 flex flex-col md:flex-row justify-start md:gap-4 md:items-center">
 								<label
 									htmlFor="contact-preferred"
 									className="text-sm text-gray-400 mr-2"
 								>
 									What's the best way to reach you?
 								</label>
-								<button
-									type="button"
-									tabIndex={-1}
-									className="inline-block ml-4 hover:cursor-pointer"
-									onClick={() => setPreferredContact("email")}
-								>
-									<input
-										type="radio"
-										name="contact-preferred-email"
-										value="email"
-										className="mr-2 checked:inset-ring-3 checked:inset-ring-cyan-500 bg-white appearance-none rounded-full w-3 h-3 hover:outline-cyan-500 hover:outline-2 hover:outline-offset-2 hover:cursor-pointer focus:outline-cyan-500 focus:outline-2 focus:outline-offset-2"
-										checked={preferredContact === "email"}
-										onChange={() => setPreferredContact("email")}
-									/>
-									<label
-										htmlFor="contact-preferred-email"
-										className="mr-4 text-gray-300 hover:cursor-pointer"
+								<div className="flex flex-row">
+									<button
+										type="button"
+										tabIndex={-1}
+										className="inline-block hover:cursor-pointer"
+										onClick={() => setPreferredContact("email")}
 									>
-										Email
-									</label>
-								</button>
-								<button
-									type="button"
-									tabIndex={-1}
-									className="inline-block ml-4 hover:cursor-pointer"
-									onClick={() => setPreferredContact("phone")}
-								>
-									<input
-										type="radio"
-										name="contact-preferred-phone"
-										value="phone"
-										className="mr-2 checked:inset-ring-3 checked:inset-ring-cyan-500 bg-white appearance-none rounded-full w-3 h-3 hover:outline-cyan-500 hover:outline-2 hover:outline-offset-2 hover:cursor-pointer focus:outline-cyan-500 focus:outline-2 focus:outline-offset-2"
-										checked={preferredContact === "phone"}
-										onChange={() => setPreferredContact("phone")}
-									/>
-									<label
-										htmlFor="contact-preferred-phone"
-										className="text-gray-300 hover:cursor-pointer"
+										<input
+											type="radio"
+											name="contact-preferred-email"
+											value="email"
+											className="mr-2 checked:inset-ring-3 checked:inset-ring-cyan-500 bg-white appearance-none rounded-full w-3 h-3 hover:outline-cyan-500 hover:outline-2 hover:outline-offset-2 hover:cursor-pointer focus:outline-cyan-500 focus:outline-2 focus:outline-offset-2"
+											checked={preferredContact === "email"}
+											onChange={() => setPreferredContact("email")}
+										/>
+										<label
+											htmlFor="contact-preferred-email"
+											className="mr-4 text-gray-300 hover:cursor-pointer"
+										>
+											Email
+										</label>
+									</button>
+									<button
+										type="button"
+										tabIndex={-1}
+										className="inline-block hover:cursor-pointer"
+										onClick={() => setPreferredContact("phone")}
 									>
-										Phone
-									</label>
-								</button>
+										<input
+											type="radio"
+											name="contact-preferred-phone"
+											value="phone"
+											className="mr-2 checked:inset-ring-3 checked:inset-ring-cyan-500 bg-white appearance-none rounded-full w-3 h-3 hover:outline-cyan-500 hover:outline-2 hover:outline-offset-2 hover:cursor-pointer focus:outline-cyan-500 focus:outline-2 focus:outline-offset-2"
+											checked={preferredContact === "phone"}
+											onChange={() => setPreferredContact("phone")}
+										/>
+										<label
+											htmlFor="contact-preferred-phone"
+											className="text-gray-300 hover:cursor-pointer"
+										>
+											Phone
+										</label>
+									</button>
+								</div>
 							</div>
 						)}
 					</div>

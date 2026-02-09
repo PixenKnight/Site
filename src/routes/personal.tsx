@@ -186,7 +186,7 @@ function RouteComponent() {
 				animate="visible"
 				custom={1}
 			>
-				<div className="items-center flex flex-row justify-end">
+				<div className="items-center flex flex-row justify-end pb-4">
 					<Toggle
 						leftColor="#00b8db"
 						rightColor="#ad46ff"

@@ -161,7 +161,7 @@ export default function MediaIcons(props: MediaIconsProps) {
 	}
 
 	return (
-		<div className="flex gap-4 text-gray-500 fill-gray-500 ">
+		<div className="flex gap-2 md:gap-4 text-gray-500 fill-gray-500 ">
 			{iconsToRender.github && (
 				<GitHubIcon size={iconSize} extended={props.extended} />
 			)}

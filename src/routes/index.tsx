@@ -10,7 +10,7 @@ function App() {
 
 	return (
 		<div className="min-h-[calc(100vh-72px-68px)] bg-gray-950 via-slate-800 to-slate-900">
-			<section className="relative py-20 px-6 text-center overflow-hidden h-[calc(100vh-72px)] flex flex-col justify-center">
+			<section className="relative py-20 px-2 md:px-6 text-center overflow-hidden h-[calc(100vh-72px)] flex flex-col justify-center">
 				<motion.div
 					className="absolute inset-0"
 					animate={{
@@ -29,7 +29,7 @@ function App() {
 						times: [0, 0.25, 0.5, 0.75, 1],
 					}}
 				/>
-				<div className="relative flex flex-col items-center max-w-5xl mx-auto">
+				<div className="relative flex flex-col items-center justify-center max-w-5xl mx-auto">
 					<motion.div
 						className="flex items-center justify-center gap-6 mb-6 w-fit"
 						animate={{
@@ -46,7 +46,7 @@ function App() {
 							damping: 15,
 						}}
 					>
-						<h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.02em]">
+						<h1 className="text-5xl md:text-7xl font-black text-white [letter-spacing:-0.02em]">
 							<span className="text-gray-300">HI! I'M</span>{" "}
 							<span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
 								PAUL
