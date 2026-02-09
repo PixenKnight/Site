@@ -7,6 +7,7 @@ import {
 	Server,
 	Sparkles,
 	SquareTerminal,
+	SquareArrowOutUpRight
 } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -119,7 +120,7 @@ function RouteComponent() {
 			transition={{ duration: 1, delay: 0.2 }}
 		>
 			<motion.section
-				className="h-fit top-0 relative py-10 px-6 items-center"
+				className="h-fit top-0 relative py-10 px-6 items-center flex flex-col justify-center gap-20"
 				variants={sectionVariants}
 				initial="initial"
 				animate="visible"
@@ -131,7 +132,7 @@ function RouteComponent() {
 						alt="Picture of me, sitting on a bus in SF."
 						hoverAltEnabled
 						tailwindClasses={{
-							imgClasses: "md:w-6xl not-md:max-w-xs",
+							imgClasses: "md:w-[100rem] not-md:max-w-xs",
 							divClasses:
 								"md:mr-10 md:my-8 not-md:my-4 outline-2 outline-offset-4 md:rounded-2xl not-md:rounded-4xl overflow-hidden",
 						}}
@@ -159,11 +160,58 @@ function RouteComponent() {
 								Paul Maresquier
 							</span>
 						</h1>
+						<p className="text-gray-300 mt-4 text-lg">
+							I'm a Full-Stack Software Engineer with a passion for building great products and learning new technologies.
+							I love working on teams that value each of their members and foster a collaborative environment (live pair coding sessions are my favorite!).
+						</p>
+						<p className="text-gray-300 mt-4 text-lg">
+							I'm currently working at a stealth startup called Consilient Labs, where we're trying to make the LLM world more deterministic
+							and easier to use, while keeping a human-centric approach in mind. You can learn more on <a
+								target="_blank"
+								rel="noopener noreferrer"
+								href="https://consilientlabs.io/"
+								className="text-cyan-400 hover:underline"
+							>
+								our website
+								<SquareArrowOutUpRight className="inline w-4 h-4 ml-1 mb-1" />
+							</a>.
+						</p>
 					</div>
 				</div>
+				<div className="">
+					<motion.span
+						className="text-gray-200 flex flex-col items-center hover:cursor-pointer"
+						animate={{
+							y: 0,
+							opacity: 1,
+						}}
+						initial={{
+							y: -10,
+							opacity: 0,
+						}}
+						transition={{
+							duration: 0.5,
+							ease: "easeOut",
+							delay: 0.2,
+						}}
+						whileHover={{
+							y: -5,
+							transition: {
+								duration: 0.3,
+								ease: "easeInOut",
+							},
+						}}
+						onClick={() => {
+							window.scrollTo({ top: window.innerHeight - 100, behavior: "smooth" });
+						}}
+					>
+						<p className="mb-[-0.5rem]">Scroll Down</p>
+						<p>&#x2304;</p>
+					</motion.span>
+				</div>
 			</motion.section>
-			<section className="py-16 px-6 max-w-7xl mx-auto">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<section className="py-16 px-6 w-full mx-auto bg-slate-900 flex justify-center items-center">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl">
 					{cards.map((feature) => (
 						<Card
 							key={feature.title}
@@ -172,6 +220,22 @@ function RouteComponent() {
 							description={feature.description}
 						/>
 					))}
+				</div>
+			</section>
+			<section className="py-16 px-6 max-w-7xl mx-auto">
+				<div className="flex flex-col items-center gap-4">
+					<div className="flex items-start w-full">
+						<h2 className="text-4xl font-bold text-white mb-4">
+							This Website's Tech Stack
+						</h2>
+					</div>
+					<motion.div
+						initial={{ opacity: 0 }}
+						whileInView={{ opacity: 1 }}
+						transition={{ duration: 0.5, ease: "easeOut" }}
+					>
+						
+					</motion.div>
 				</div>
 			</section>
 		</motion.div>
