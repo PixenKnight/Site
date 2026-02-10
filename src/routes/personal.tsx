@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Photo from "../components/Photo";
 import ScrollCarousel from "../components/ScrollCarousel";
 import Toggle from "../components/Toggle";
+import { mdOrAbove } from "../utils"
 
 export const Route = createFileRoute("/personal")({
 	component: RouteComponent,
@@ -129,8 +130,7 @@ function RouteComponent() {
 						hoverAltEnabled
 						tailwindClasses={{
 							imgClasses: "md:w-6xl not-md:max-w-xs",
-							divClasses:
-								"md:mr-10 md:my-8 not-md:my-4 outline-2 outline-offset-4 md:rounded-2xl not-md:rounded-4xl overflow-hidden",
+							divClasses: "md:mr-10 md:my-8 not-md:my-4 outline-2 outline-offset-4 md:rounded-2xl not-md:rounded-4xl",
 						}}
 						props={{
 							divProps: {
@@ -147,6 +147,12 @@ function RouteComponent() {
 									},
 								},
 							},
+							imgProps: {
+								style: {
+									borderRadius: mdOrAbove() ? "16px" : "32px",
+									zIndex: 100
+								}
+							}
 						}}
 					/>
 					<div>
@@ -180,7 +186,7 @@ function RouteComponent() {
 				</div>
 			</motion.section>
 			<motion.section
-				className="py-6 px-6 md:px-100 mx-auto bg-slate-900 overflow-hidden"
+				className="py-6 px-6 md:px-100 mx-auto bg-slate-900"
 				variants={sectionVariants}
 				initial="initial"
 				animate="visible"
