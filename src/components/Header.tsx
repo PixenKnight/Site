@@ -45,25 +45,6 @@ function BurgerMenu({
 	// 	Record<string, boolean>
 	// >({});
 
-	const sideMenu = [];
-	for (const route of orderedRoutes) {
-		sideMenu.push(
-			<Link
-				key={route.path}
-				to={route.path}
-				onClick={() => setIsOpen(false)}
-				className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-				activeProps={{
-					className:
-						"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-				}}
-			>
-				{<route.icon size={20} />}
-				<span className="font-medium">{route.name}</span>
-			</Link>,
-		);
-	}
-
 	return (
 		<aside
 			className={`fixed top-0 right-0 h-full w-80 bg-gray-900 text-white shadow-2xl z-100 transform transition-transform duration-300 ease-in-out flex flex-col ${
@@ -83,7 +64,22 @@ function BurgerMenu({
 			</div>
 
 			<nav className="flex-1 p-4 overflow-y-auto">
-				{sideMenu}
+				{orderedRoutes.map((value) => (
+					<Link
+						key={value.path}
+						to={value.path}
+						onClick={() => setIsOpen(false)}
+						tabIndex={isOpen ? 0 : -1}
+						className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+						activeProps={{
+							className:
+								"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
+						}}
+					>
+						{<value.icon size={20} />}
+						<span className="font-medium">{value.name}</span>
+			</Link>
+				))}
 
 				{/* Demo Links Start
 
@@ -212,56 +208,58 @@ function HeaderNav({
 	return (
 		<div>
 			{!burgerOverNavbar && (
-				<nav className="mr-4 flex items-center gap-6">
-					{orderedRoutes.map((value) => (
-						<Link
-							key={value.path}
-							to={value.path}
-							className="relative"
-						>
-							<motion.p
-								animate={{
-									color: value.path === location.pathname ? "#00b8db" : "#fff",
-								}}
-								whileHover={{
-									color: "#00b8db"
-								}}
-								initial={{
-									color: "#fff"
-								}}
+				<nav>
+					<ul className="list-none mr-4 flex items-center gap-6">
+						{orderedRoutes.map((value) => (
+							<Link
+								key={value.path}
+								to={value.path}
+								className="relative"
 							>
-								{value.name}
-							</motion.p>
-							{value.path === location.pathname ? (
-								<>
-									<motion.div
-										layoutId="underline"
-										id="underline"
-										style={{
-											position: "absolute",
-											bottom: -2,
-											left: 0,
-											right: 0,
-											height: 2,
-											backgroundColor: "#00b8db"
-										}}
-									/>
-									<motion.div
-										layoutId="overline"
-										id="overline"
-										style={{
-											position: "absolute",
-											top: 1,
-											left: 0,
-											right: 0,
-											height: 2,
-											backgroundColor: "#00b8db"
-										}}
-									/>
-								</>
-                            ) : null}
-						</Link>
-					))}
+								<motion.p
+									animate={{
+										color: value.path === location.pathname ? "#00b8db" : "#fff",
+									}}
+									whileHover={{
+										color: "#00b8db"
+									}}
+									initial={{
+										color: "#fff"
+									}}
+								>
+									{value.name}
+								</motion.p>
+								{value.path === location.pathname ? (
+									<>
+										<motion.div
+											layoutId="underline"
+											id="underline"
+											style={{
+												position: "absolute",
+												bottom: -2,
+												left: 0,
+												right: 0,
+												height: 2,
+												backgroundColor: "#00b8db"
+											}}
+										/>
+										<motion.div
+											layoutId="overline"
+											id="overline"
+											style={{
+												position: "absolute",
+												top: 1,
+												left: 0,
+												right: 0,
+												height: 2,
+												backgroundColor: "#00b8db"
+											}}
+										/>
+									</>
+								) : null}
+							</Link>
+						))}				
+					</ul>
 				</nav>
 			)}
 
