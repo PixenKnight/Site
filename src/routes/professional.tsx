@@ -29,6 +29,7 @@ import React, { useEffect, useState } from "react";
 
 import Photo from "../components/Photo";
 import { MotionIcon } from "../components/MediaIcons"
+import { mdOrAbove } from "../utils";
 
 export const Route = createFileRoute("/professional")({
 	component: RouteComponent,
@@ -204,8 +205,7 @@ function RouteComponent() {
 						hoverAltEnabled
 						tailwindClasses={{
 							imgClasses: "md:w-[100rem] not-md:max-w-xs",
-							divClasses:
-								"md:mr-10 md:my-8 not-md:my-4 outline-2 outline-offset-4 md:rounded-2xl not-md:rounded-4xl overflow-hidden",
+							divClasses: "md:mr-10 md:my-8 not-md:my-4 outline-2 outline-offset-4 md:rounded-2xl not-md:rounded-4xl",
 						}}
 						props={{
 							divProps: {
@@ -222,6 +222,13 @@ function RouteComponent() {
 									},
 								},
 							},
+							imgProps: {
+								style: {
+									borderRadius: mdOrAbove() ? "16px" : "32px",
+									zIndex: 100
+								},
+								draggable: false
+							}
 						}}
 					/>
 					<div>

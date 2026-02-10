@@ -1,10 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
-	animate,
-	type MotionValue,
 	motion,
 	useInView,
-	useMotionValue,
 	useMotionValueEvent,
 	useScroll,
 } from "motion/react";

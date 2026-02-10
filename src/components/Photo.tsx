@@ -207,6 +207,7 @@ export default function Photo({
 	tailwindClasses,
 	props,
 }: PhotoProps & MotionProps) {
+	const [ photoSource, setPhotoSource ] = useState(src);
 	const [ photoModalSelected, setPhotoModalSelected ] = useState(false);
 
 	// Move margin and padding to motion div to avoid description text issues
@@ -224,7 +225,11 @@ export default function Photo({
 
 	const imgRoundingStyle = imgProps?.style?.borderRadius;
 	const divRoundingStyle = divProps?.style?.borderRadius;
-	const unalteredRounding = imgRoundingStyle ?? divRoundingStyle ?? "";
+	const roundingStyle = imgRoundingStyle ?? divRoundingStyle ?? "";
+
+	useEffect(() => {
+		setPhotoSource(src);
+	}, [src]);
 
 	useEffect(() => {
 		if (!tailwindClasses) return;
@@ -344,8 +349,8 @@ export default function Photo({
 				{/* Image with motion effects */}
 				<motion.img
 					layout
-					layoutId={`photo-${src}`}
-					src={src}
+					layoutId={`photo-${photoSource}`}
+					src={photoSource}
 					alt={alt}
 					title={alt}
 					className={imgClasses}
@@ -360,7 +365,7 @@ export default function Photo({
 						className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 from-70% to-transparent pointer-events-auto"
 						variants={hoverAltTextVariants}
 						transition={{ duration: 0.3, ease: "easeInOut" }}
-						style={{ borderBottomRightRadius: unalteredRounding, borderBottomLeftRadius: unalteredRounding }}
+						style={{ borderBottomRightRadius: roundingStyle, borderBottomLeftRadius: roundingStyle }}
 					>
 						<p className="text-white text-lg m-2 text-center select-text">
 							{alt}
@@ -370,7 +375,7 @@ export default function Photo({
 					{/* Modal text for layout anim */}
 					<motion.div
 						layout
-						layoutId={`alt-${src}`}
+						layoutId={`alt-${photoSource}`}
 						className="absolute bottom-0 left-0 w-full bg-slate-900 z-0"
 						style={{ 
 							opacity: 0,
@@ -412,7 +417,7 @@ export default function Photo({
 								className="flex flex-col shrink-0 items-center justify-center w-min relative"
 							>
 								<motion.button
-									className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white text-black hover:bg-gray-200 transition-colors z-300"
+									className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white text-black hover:bg-gray-200 transition-colors z-300 cursor-pointer"
 									variants={closeButtonVariants}
 									initial="hidden"
 									animate="visible"
@@ -452,8 +457,8 @@ export default function Photo({
 								</motion.button>
 								<motion.img
 									layout
-									layoutId={`photo-${src}`}
-									src={src}
+									layoutId={`photo-${photoSource}`}
+									src={photoSource}
 									alt={alt}
 									title={alt}
 									className="relative"
@@ -475,7 +480,7 @@ export default function Photo({
 								/>
 								<motion.div
 									layout
-									layoutId={`alt-${src}`}
+									layoutId={`alt-${photoSource}`}
 									className="bg-slate-900 text-white text-center p-4 text-wrap w-full"
 									style={{
 										borderBottomLeftRadius: "12px",
