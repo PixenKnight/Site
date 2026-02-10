@@ -1,4 +1,4 @@
-import { AnimatePresence, type MotionProps, motion } from "motion/react";
+import { AnimatePresence, type MotionProps, motion, type Variants } from "motion/react";
 import {
 	type DetailedHTMLProps,
 	type HTMLAttributes,
@@ -171,6 +171,34 @@ const hoverAltTextVariants = {
 	normal: { y: "100%", opacity: 0 },
 	hovered: { y: "0%", opacity: 1 },
 };
+
+const closeButtonVariants: Variants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			delay: 0.3,
+			duration: 0.2,
+			ease: "easeInOut",
+			when: "beforeChildren",
+		},
+	},
+}
+
+const closeButtonCrossVariants: Variants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: (index) => {
+		const delay = 0.2 * index;
+		return {
+			pathLength: 1,
+			opacity: 1,
+			transition: {
+				pathLength: { delay, type: "spring", duration: 1.5, bounce: 0 },
+				opacity: { delay, duration: 0.01 },
+			},
+		}
+    },
+}
 
 export default function Photo({
 	src,
@@ -364,27 +392,64 @@ export default function Photo({
 				</div>
 			</motion.div>
 
-			{/* Overlay for modal */}
-			<motion.div
-				className="fixed inset-0 flex shrink-0 items-center justify-center z-50 bg-black blur-sm"
-				animate={{
-					display: photoModalSelected ? "block" : "none",
-					opacity: photoModalSelected ? 0.5 : 0,
-				}}
-			/>
-
 			{/* Modal for full-size image */}
 			<AnimatePresence>
 				{ photoModalSelected && (
 					<>
+						{/* Full-screen div, background blur and dim */}
 						<motion.div
-							layout
 							className="z-100 fixed inset-0 flex items-center justify-center"
+							animate={{
+								backdropFilter: photoModalSelected ? "blur(5px)" : "blur(0px)",
+								backgroundColor: photoModalSelected ? "rgba(0, 0, 0, 0.5)" : "rgba(0, 0, 0, 0)",
+							}}
+							initial={{ backdropFilter: "blur(0px)", backgroundColor: "rgba(0, 0, 0, 0)" }}
+							exit={{ backdropFilter: "blur(0px)", backgroundColor: "rgba(0, 0, 0, 0)" }}
 							onClick={() => setPhotoModalSelected(false)}
 						>
+							{/* Modal contents */}
 							<motion.div
-								className="flex flex-col shrink-0 items-center justify-center w-min"
+								className="flex flex-col shrink-0 items-center justify-center w-min relative"
 							>
+								<motion.button
+									className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white text-black hover:bg-gray-200 transition-colors z-300"
+									variants={closeButtonVariants}
+									initial="hidden"
+									animate="visible"
+									exit="hidden"
+									onClick={() => setPhotoModalSelected(false)}
+								>
+									<motion.svg width="20" height="20" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+										<motion.line
+											x1="20"
+											y1="180"
+											x2="180"
+											y2="20"
+											stroke="#000"
+											variants={closeButtonCrossVariants}
+											custom={0}
+											style={{
+												strokeWidth: 25,
+												strokeLinecap: "round",
+												fill: "transparent",
+											}}
+										/>
+										<motion.line
+											x1="20"
+											y1="20"
+											x2="180"
+											y2="180"
+											stroke="#000"
+											variants={closeButtonCrossVariants}
+											custom={1}
+											style={{
+												strokeWidth: 25,
+												strokeLinecap: "round",
+												fill: "transparent",
+											}}
+										/>
+									</motion.svg>
+								</motion.button>
 								<motion.img
 									layout
 									layoutId={`photo-${src}`}
