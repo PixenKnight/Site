@@ -227,6 +227,7 @@ export default function ScrollCarousel(props: {
 			<motion.ul
 				ref={ulRef}
 				className="flex list-none overflow-x-auto flex-shrink-0 flex-grow-0 pb-6 mb-1 pt-6 snap-x snap-mandatory max-h-128 snap-normal"
+				tabIndex={-1}
 			>
 				{props.photos.map((photo, i) => {
 					return (
