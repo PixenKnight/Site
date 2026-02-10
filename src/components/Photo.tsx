@@ -1,4 +1,4 @@
-import { type MotionProps, motion } from "motion/react";
+import { AnimatePresence, type MotionProps, motion } from "motion/react";
 import {
 	type DetailedHTMLProps,
 	type HTMLAttributes,
@@ -100,7 +100,6 @@ function filterTailwindClasses(tailwindClasses: string | undefined) {
 	return { imgClasses, divClasses };
 }
 
-// Need to separate 'key' from other props because React doesn't like it when it's spread into the element props
 function filterProps(
 	props:
 		| (MotionProps &
@@ -180,8 +179,10 @@ export default function Photo({
 	tailwindClasses,
 	props,
 }: PhotoProps & MotionProps) {
+	const [ photoModalSelected, setPhotoModalSelected ] = useState(false);
+
 	// Move margin and padding to motion div to avoid description text issues
-	const [imgClasses, setImgClasses] = useState("");
+	const [ imgClasses, setImgClasses ] = useState("");
 	const [divClasses, setDivClasses] = useState("");
 
 	const [imgProps, setImgProps] = useState<
@@ -193,15 +194,9 @@ export default function Photo({
 			DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 	>({});
 
-	const imgRoundingClass = imgClasses
-		.split(" ")
-		.filter((c) => c.includes("rounded"))
-		.join(" ");
-	const divRoundingClass = divClasses
-		.split(" ")
-		.filter((c) => c.includes("rounded"))
-		.join(" ");
-	const unalteredRounding = imgRoundingClass ?? divRoundingClass ?? "";
+	const imgRoundingStyle = imgProps?.style?.borderRadius;
+	const divRoundingStyle = divProps?.style?.borderRadius;
+	const unalteredRounding = imgRoundingStyle ?? divRoundingStyle ?? "";
 
 	useEffect(() => {
 		if (!tailwindClasses) return;
@@ -307,47 +302,130 @@ export default function Photo({
 	}, [props]);
 
 	return (
-		<motion.div
-			layout
-			className={`${divClasses} relative`}
-			draggable={divProps?.draggable}
-			variants={hoverImageVariants}
-			whileHover={hoverAltEnabled ? "hovered" : "normal"}
-			initial="normal"
-			{...divProps}
-		>
-			{/* Image with motion effects */}
-			<motion.img
-				src={src}
-				alt={alt}
-				title={alt}
-				className={imgClasses}
-				{...imgProps}
+		<>
+			<motion.div
+				layout
+				className={`${divClasses} relative`}
+				draggable={divProps?.draggable}
+				variants={hoverImageVariants}
+				whileHover={hoverAltEnabled ? "hovered" : "normal"}
+				onClick={() => setPhotoModalSelected(true)}
+				initial="normal"
+				{...divProps}
+			>
+				{/* Image with motion effects */}
+				<motion.img
+					layout
+					layoutId={`photo-${src}`}
+					src={src}
+					alt={alt}
+					title={alt}
+					className={imgClasses}
+					{...imgProps}
+				/>
+
+				{/* Hover alt text */}
+				<div
+					className="absolute bottom-0 left-0 right-0 top-0 overflow-hidden pointer-events-none"
+				>
+					<motion.div
+						className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 from-70% to-transparent pointer-events-auto"
+						variants={hoverAltTextVariants}
+						transition={{ duration: 0.3, ease: "easeInOut" }}
+						style={{ borderBottomRightRadius: unalteredRounding, borderBottomLeftRadius: unalteredRounding }}
+					>
+						<p className="text-white text-lg m-2 text-center select-text">
+							{alt}
+						</p>
+					</motion.div>
+
+					{/* Modal text for layout anim */}
+					<motion.div
+						layout
+						layoutId={`alt-${src}`}
+						className="absolute bottom-0 left-0 w-full bg-slate-900 z-0"
+						style={{ 
+							opacity: 0,
+						}}
+					>
+						<p className="text-white text-lg m-2 text-center select-text">
+							{alt}
+						</p>
+					</motion.div>
+
+					{/* Alt: solid slate background */}
+					{/* <motion.div 
+						className="absolute bottom-0 left-0 w-full bg-slate-800 pointer-events-auto"
+						variants={hoverAltTextVariants}
+						transition={{ duration: 0.3, ease: "easeInOut" }}
+					>
+						<p className="text-white text-sm text-center m-2 select-text">{alt}</p>
+					</motion.div> */}
+				</div>
+			</motion.div>
+
+			{/* Overlay for modal */}
+			<motion.div
+				className="fixed inset-0 flex shrink-0 items-center justify-center z-50 bg-black blur-sm"
+				animate={{
+					display: photoModalSelected ? "block" : "none",
+					opacity: photoModalSelected ? 0.5 : 0,
+				}}
 			/>
 
-			{/* Hover alt text */}
-			<div
-				className={`absolute bottom-0 left-0 right-0 top-0 overflow-hidden pointer-events-none ${unalteredRounding}`}
-			>
-				<motion.div
-					className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 from-70% to-transparent pointer-events-auto"
-					variants={hoverAltTextVariants}
-					transition={{ duration: 0.3, ease: "easeInOut" }}
-				>
-					<p className="text-white text-lg m-2 text-center select-text">
-						{alt}
-					</p>
-				</motion.div>
-
-				{/* Alt: solid slate background */}
-				{/* <motion.div 
-					className="absolute bottom-0 left-0 w-full bg-slate-800 pointer-events-auto"
-					variants={hoverAltTextVariants}
-					transition={{ duration: 0.3, ease: "easeInOut" }}
-				>
-					<p className="text-white text-sm text-center m-2 select-text">{alt}</p>
-				</motion.div> */}
-			</div>
-		</motion.div>
+			{/* Modal for full-size image */}
+			<AnimatePresence>
+				{ photoModalSelected && (
+					<>
+						<motion.div
+							layout
+							className="z-100 fixed inset-0 flex items-center justify-center"
+							onClick={() => setPhotoModalSelected(false)}
+						>
+							<motion.div
+								className="flex flex-col shrink-0 items-center justify-center w-min"
+							>
+								<motion.img
+									layout
+									layoutId={`photo-${src}`}
+									src={src}
+									alt={alt}
+									title={alt}
+									className="relative"
+									style={{
+										width: "fit-content",
+										maxHeight: "75vh",
+										maxWidth: "90vw",
+										margin: "0",
+										borderTopLeftRadius: "12px",
+										borderTopRightRadius: "12px",
+										zIndex: 200,
+										userSelect: "none",
+										msUserSelect: "none",
+										WebkitUserSelect: "none",
+										MozUserSelect: "none",
+									}}
+									draggable={false}
+									onClick={(e) => e.stopPropagation()}
+								/>
+								<motion.div
+									layout
+									layoutId={`alt-${src}`}
+									className="bg-slate-900 text-white text-center p-4 text-wrap w-full"
+									style={{
+										borderBottomLeftRadius: "12px",
+										borderBottomRightRadius: "12px",
+										zIndex: 50
+									}}
+									onClick={(e) => e.stopPropagation()}
+								>
+									<p className="text-xl">{alt}</p>
+								</motion.div>
+							</motion.div>
+						</motion.div>
+					</>
+				)}
+			</AnimatePresence>
+		</>
 	);
 }

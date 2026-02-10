@@ -53,52 +53,6 @@ function Dots({
 	);
 }
 
-function scrollOverflowMask(
-	scrollXProgress: MotionValue<number>,
-	selectedOverride?: number,
-	selectedMax?: number,
-) {
-	const left = `0%`;
-	const right = `100%`;
-	const leftInset = `10%`;
-	const rightInset = `90%`;
-	const transparent = `#0000`;
-	const opaque = `#000`;
-
-	const maskImage = useMotionValue(
-		`linear-gradient(90deg, ${opaque}, ${opaque} ${left}, ${opaque} ${rightInset}, ${transparent})`,
-	);
-
-	useMotionValueEvent(scrollXProgress, "change", (value) => {
-		const prev = scrollXProgress.getPrevious();
-
-		if (
-			value === 0 ||
-			(selectedOverride !== undefined && selectedOverride === 0)
-		) {
-			animate(
-				maskImage,
-				`linear-gradient(90deg, ${opaque}, ${opaque} ${left}, ${opaque} ${rightInset}, ${transparent})`,
-			);
-		} else if (
-			value === 1 ||
-			(selectedOverride !== undefined && selectedOverride === selectedMax)
-		) {
-			animate(
-				maskImage,
-				`linear-gradient(90deg, ${transparent}, ${opaque} ${leftInset}, ${opaque} ${right}, ${opaque})`,
-			);
-		} else if ((prev && prev <= 0.05) || (prev && prev >= 0.95)) {
-			animate(
-				maskImage,
-				`linear-gradient(90deg, ${transparent}, ${opaque} ${leftInset}, ${opaque} ${rightInset}, ${transparent})`,
-			);
-		}
-	});
-
-	return maskImage;
-}
-
 /**
  * Helper component for {@link ScrollCarousel}.
  * Renders each photo and alt text, and sets up refs and inView state for each photo to be used by ScrollCarousel.
@@ -138,7 +92,7 @@ function CarouselLi(props: {
 				hoverAltEnabled
 				tailwindClasses={{
 					imgClasses:
-						"rounded-lg md:h-100 outline-2 outline-offset-4 select-none not-md:max-w-70",
+						"md:h-100 outline-2 outline-offset-4 select-none not-md:max-w-70",
 					divClasses: "mx-4",
 				}}
 				props={{
@@ -148,9 +102,7 @@ function CarouselLi(props: {
 								props.selected === props.index
 									? "rgba(0, 184, 219, 1)"
 									: "rgba(0, 184, 219, 0)",
-						},
-						initial: {
-							outlineColor: "transparent",
+							borderRadius: "8px"
 						},
 						draggable: false,
 					},
@@ -183,11 +135,6 @@ export default function ScrollCarousel(props: {
 
 	const ulRef = useRef<HTMLUListElement>(null);
 	const { scrollXProgress } = useScroll({ container: ulRef });
-	const maskImage = scrollOverflowMask(
-		scrollXProgress,
-		selected,
-		props.photos.length - 1,
-	);
 
 	const liRefs = useRef<(HTMLLIElement | null)[]>([]);
 	const liViewRefs = useRef<(boolean | null)[]>([]);
@@ -279,9 +226,8 @@ export default function ScrollCarousel(props: {
 	});
 
 	return (
-		<div className="relative w-full max-w-full flex flex-col">
+		<div className="relative w-full max-w-full flex flex-col overflow-visible">
 			<motion.ul
-				style={{ maskImage }}
 				ref={ulRef}
 				className="flex list-none overflow-x-auto flex-shrink-0 flex-grow-0 pb-6 mb-1 pt-6 snap-x snap-mandatory max-h-128 snap-normal"
 			>
