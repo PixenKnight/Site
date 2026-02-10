@@ -10,6 +10,7 @@ import {
 	X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 
 const orderedRoutes = [
 	{ path: "/", name: "Home", icon: Home },
@@ -186,12 +187,6 @@ function HeaderNav({
 	const windowWidth = useWindowWidth();
 	const location = useLocation();
 
-	const highlightRoute = (path: string) => {
-		return location.pathname === path
-			? "transition-colors text-cyan-400 font-semibold border-y-2"
-			: "transition-colors text-white font-medium hover:text-cyan-400";
-	};
-
 	useEffect(() => {
 		if (windowWidth >= 768) {
 			setBurgerOverNavbar(false);
@@ -200,24 +195,34 @@ function HeaderNav({
 		}
 	}, [windowWidth]);
 
-	const navbarLinks = [];
-	for (const route of orderedRoutes) {
-		// Remove leading and trailing slashes for cleaner display
-		navbarLinks.push(
-			<Link
-				key={route.path}
-				to={route.path}
-				className={`pb-[0.12rem] ${highlightRoute(route.path)}`}
-			>
-				{route.name}
-			</Link>,
-		);
-	}
-
 	return (
 		<div>
 			{!burgerOverNavbar && (
-				<nav className="mr-4 flex items-center gap-6">{navbarLinks}</nav>
+				<nav className="mr-4 flex items-center gap-6">
+					{orderedRoutes.map((value) => (
+						<Link
+							key={value.path}
+							to={value.path}
+							className="relative"
+						>
+							{value.name}
+							{value.path === location.pathname ? (
+                                <motion.div
+                                    layoutId="underline"
+                                    id="underline"
+									style={{
+										position: "absolute",
+										bottom: -2,
+										left: 0,
+										right: 0,
+										height: 2,
+										backgroundColor: "#00b8db"
+									}}
+                                />
+                            ) : null}
+						</Link>
+					))}
+				</nav>
 			)}
 
 			{burgerOverNavbar && (
