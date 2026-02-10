@@ -20,6 +20,20 @@ const orderedRoutes = [
 	{ path: "/contact", name: "Contact", icon: MailPlus },
 ];
 
+// Set of randomly-chosen fonts, one of which is applied to the name in the header on each page load
+const paulFonts = [
+	"'Comic Sans MS'",
+	"'Roboto'",
+	"'Segoe UI'",
+	"'Arial'",
+	"'Verdana'",
+	"'Trebuchet MS'",
+	"'Georgia'",
+	"'Garamond'",
+	"'Courier New'",
+	"'Brush Script MT'",
+]
+
 function BurgerMenu({
 	isOpen,
 	setIsOpen,
@@ -267,13 +281,24 @@ function HeaderNav({
 
 export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [ fontIndex, setFontIndex ] = useState(0);
+
+	useEffect(() => {
+		const randomIndex = Math.floor(Math.random() * paulFonts.length);
+		setFontIndex(randomIndex);
+	}, []);
 
 	return (
 		<>
 			<header className="p-4 flex items-center bg-black text-white shadow-lg justify-between fixed top-0 left-0 right-0 sticky z-50">
-				<h1 className="ml-4 text-4xl font-bold italic">
+				<motion.h1
+					className="ml-4 text-4xl font-bold italic"
+					style={{ fontFamily: paulFonts[fontIndex] }}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+				>
 					<Link to="/">Paul</Link>
-				</h1>
+				</motion.h1>
 				<HeaderNav isOpen={isOpen} setIsOpen={setIsOpen} />
 			</header>
 			<BurgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
