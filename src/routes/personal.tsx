@@ -151,7 +151,8 @@ function RouteComponent() {
 								style: {
 									borderRadius: mdOrAbove() ? "16px" : "32px",
 									zIndex: 100
-								}
+								},
+								draggable: false
 							}
 						}}
 					/>
