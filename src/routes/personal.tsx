@@ -187,44 +187,46 @@ function RouteComponent() {
 				</div>
 			</motion.section>
 			<motion.section
-				className="py-6 px-6 md:px-100 mx-auto bg-slate-900"
+				className="py-6 px-6 mx-auto bg-slate-900"
 				variants={sectionVariants}
 				initial="initial"
 				animate="visible"
 				custom={1}
 			>
-				<div className="items-center flex flex-row justify-end pb-4">
-					<Toggle
-						leftColor="#00b8db"
-						rightColor="#ad46ff"
-						ballColor="#fff"
-						startRight={false}
-						labels={["Cats", "Me"]}
-						isRight={[carouselToggle, setCarouselToggle]}
-					/>
+				<div className="flex flex-col items-center justify-center gap-4 max-w-full w-5xl min-w-0 mx-auto">
+					<div className="items-center flex flex-row w-full justify-end">
+						<Toggle
+							leftColor="#00b8db"
+							rightColor="#ad46ff"
+							ballColor="#fff"
+							startRight={false}
+							labels={["Cats", "Me"]}
+							isRight={[carouselToggle, setCarouselToggle]}
+						/>
+					</div>
+					<motion.div
+						className="flex align-center justify-center max-w-full"
+						variants={carouselVariants}
+						animate={carouselToggle ? "invisible" : "visible"}
+						initial="invisible"
+					>
+						<ScrollCarousel
+							photos={catPhotos.photos}
+							altTexts={catPhotos.altTexts}
+						/>
+					</motion.div>
+					<motion.div
+						className="flex align-center justify-center max-w-full"
+						variants={carouselVariants}
+						animate={carouselToggle ? "visible" : "invisible"}
+						initial="visible"
+					>
+						<ScrollCarousel
+							photos={mePhotos.photos}
+							altTexts={mePhotos.altTexts}
+						/>
+					</motion.div>
 				</div>
-				<motion.div
-					className="flex align-center justify-center"
-					variants={carouselVariants}
-					animate={carouselToggle ? "invisible" : "visible"}
-					initial="invisible"
-				>
-					<ScrollCarousel
-						photos={catPhotos.photos}
-						altTexts={catPhotos.altTexts}
-					/>
-				</motion.div>
-				<motion.div
-					className="flex align-center justify-center"
-					variants={carouselVariants}
-					animate={carouselToggle ? "visible" : "invisible"}
-					initial="visible"
-				>
-					<ScrollCarousel
-						photos={mePhotos.photos}
-						altTexts={mePhotos.altTexts}
-					/>
-				</motion.div>
 			</motion.section>
 		</motion.div>
 	);
