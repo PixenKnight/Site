@@ -205,7 +205,13 @@ function HeaderNav({
 							to={value.path}
 							className="relative"
 						>
-							{value.name}
+							<motion.p
+								animate={{
+									color: value.path === location.pathname ? "#00b8db" : "#fff",
+								}}
+							>
+								{value.name}
+							</motion.p>
 							{value.path === location.pathname ? (
                                 <motion.div
                                     layoutId="underline"
