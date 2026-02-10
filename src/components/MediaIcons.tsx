@@ -31,12 +31,13 @@ function GitHubIcon(props: IconProps) {
 			title="GitHub"
 			target="_blank"
 			rel="noopener noreferrer"
-			className="hover:text-gray-300 text-gray-400 transition-colors cursor-pointer"
+			className="hover:text-gray-300 text-gray-400 transition-colors cursor-pointer rounded-lg"
 		>
 			{props.extended ? (
 				<button
 					className="flex items-center gap-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 rounded-lg border-2 border-slate-700 hover:border-slate-600 cursor-pointer"
 					type="button"
+					tabIndex={-1}
 				>
 					<SiGithub name="githubIcon" size={size} className="cursor-pointer" />
 					<label htmlFor="githubIcon" className="cursor-pointer">
@@ -59,12 +60,13 @@ function LinkedInIcon(props: IconProps) {
 			title="LinkedIn"
 			target="_blank"
 			rel="noopener noreferrer"
-			className="fill-gray-400 text-gray-400 hover:fill-gray-300 hover:text-gray-300 transition-colors cursor-pointer"
+			className="fill-gray-400 text-gray-400 hover:fill-gray-300 hover:text-gray-300 transition-colors cursor-pointer rounded-lg"
 		>
 			{props.extended ? (
 				<button
 					className="flex items-center gap-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 rounded-lg border-2 border-slate-700 hover:border-slate-600 cursor-pointer"
 					type="button"
+					tabIndex={-1}
 				>
 					<svg
 						role="img"
@@ -125,12 +127,13 @@ function SteamIcon(props: IconProps) {
 			title="Steam"
 			target="_blank"
 			rel="noopener noreferrer"
-			className="hover:text-gray-300 text-gray-400 transition-colors"
+			className="hover:text-gray-300 text-gray-400 transition-colors rounded-lg"
 		>
 			{props.extended ? (
 				<button
 					className="flex items-center gap-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 rounded-lg border-2 border-slate-700 hover:border-slate-600 cursor-pointer"
 					type="button"
+					tabIndex={-1}
 				>
 					<SiSteam name="steamIcon" size={size} className="cursor-pointer" />
 					<label htmlFor="steamIcon" className="cursor-pointer">
