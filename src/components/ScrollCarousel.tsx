@@ -99,6 +99,8 @@ function CarouselLi(props: {
 								props.selected === props.index
 									? "rgba(0, 184, 219, 1)"
 									: "rgba(0, 184, 219, 0)",
+						},
+						style: {
 							borderRadius: "8px"
 						},
 						draggable: false,
