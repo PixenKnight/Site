@@ -209,22 +209,42 @@ function HeaderNav({
 								animate={{
 									color: value.path === location.pathname ? "#00b8db" : "#fff",
 								}}
+								whileHover={{
+									color: "#00b8db"
+								}}
+								initial={{
+									color: "#fff"
+								}}
 							>
 								{value.name}
 							</motion.p>
 							{value.path === location.pathname ? (
-                                <motion.div
-                                    layoutId="underline"
-                                    id="underline"
-									style={{
-										position: "absolute",
-										bottom: -2,
-										left: 0,
-										right: 0,
-										height: 2,
-										backgroundColor: "#00b8db"
-									}}
-                                />
+								<>
+									<motion.div
+										layoutId="underline"
+										id="underline"
+										style={{
+											position: "absolute",
+											bottom: -2,
+											left: 0,
+											right: 0,
+											height: 2,
+											backgroundColor: "#00b8db"
+										}}
+									/>
+									<motion.div
+										layoutId="overline"
+										id="overline"
+										style={{
+											position: "absolute",
+											top: 1,
+											left: 0,
+											right: 0,
+											height: 2,
+											backgroundColor: "#00b8db"
+										}}
+									/>
+								</>
                             ) : null}
 						</Link>
 					))}
